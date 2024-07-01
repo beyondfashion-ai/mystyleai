@@ -19,9 +19,18 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
-        {children}
-        <BottomTabWrapper />
+      <body 
+        className="flex justify-center"
+      >
+        <div
+          className="w-full h-screen"
+          style={{ maxWidth: 375 }}
+
+        >
+          {children}
+          <BottomTabWrapper />
+        </div>
+        
       </body>
     </html>
   );
