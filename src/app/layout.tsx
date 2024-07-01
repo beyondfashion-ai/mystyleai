@@ -24,7 +24,7 @@ export default function RootLayout({
       >
         <div
           className="w-full h-screen"
-          style={{ maxWidth: 375 }}
+          style={{ maxWidth: 'var(--max-width)', backgroundColor: '#FDFCE9' }}
 
         >
           {children}

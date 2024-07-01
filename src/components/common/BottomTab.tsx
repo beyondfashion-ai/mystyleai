@@ -2,19 +2,58 @@
 
 import { memo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 const BottomTab = memo(() => {
+  const pathname = usePathname();
+  const links = [
+    { href: '/home', label: 'home', icon: '/images/bottomTab/homeIcon.png', highlightedIcon: '/images/bottomTab/hilightedHomeIcon.png', width: 21, height: 21 },
+    { href: '/search', label: 'search', icon: '/images/bottomTab/searchIcon.png', highlightedIcon: '/images/bottomTab/hilightedSearchIcon.png', width: 19, height: 19 },
+    { href: '/add', label: 'add', icon: '/images/bottomTab/addIcon.png', highlightedIcon: '/images/bottomTab/hilightedHomeIcon.png', width: 23, height: 23 },
+    { href: '/shopping', label: 'shopping', icon: '/images/bottomTab/shoppingIcon.png', highlightedIcon: '/images/bottomTab/hilightedShoppingIcon.png', width: 24, height: 24 },
+    { href: '/mypage', label: 'mypage', icon: '/images/bottomTab/myPageIcon.png', highlightedIcon: '/images/bottomTab/hilightedMyPageIcon.png', width: 22, height: 22 },
+  ]
+
+
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 flex justify-center"
-      style={{ backgroundColor: 'red', maxWidth: 375, margin: '0 auto' }}
+      className="fixed bottom-0 left-0 right-0 flex justify-center bg-white"
+      style={{ maxWidth: 'var(--max-width)', height: 84, margin: '0 auto', boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.1)' }}
     >
-      <div className="flex justify-around" style={{ width: '100%' }}>
-        <Link href="/home" className="p-4">Home</Link>
-        <Link href="/search" className="p-4">Search</Link>
-        <Link href="/add" className="p-4">Add</Link>
-        <Link href="/shop" className="p-4">Shop</Link>
-        <Link href="/mypage" className="p-4">My Page</Link>
+      <div className="flex justify-around py-4 items-center" style={{ width: '100%' }}>
+
+        {links.map(({ href, label, icon, highlightedIcon, width, height }) => (
+          <Link key={href} href={href} >
+            {label == 'add' ? (
+              <div 
+                className="flex flex-col items-center justify-center"
+                style={{ width: 55, height: 55, backgroundColor: pathname === href ? 'var(--main-color)' : '#27343E', borderRadius: 55 / 2, color: 'white' }}
+              >
+                <Image
+                  src={icon}
+                  alt={label}
+                  width={width}
+                  height={height}
+                />
+              </div>
+            ) : (
+              <div className="flex flex-col items-center">
+                <Image
+                  src={pathname === href ? highlightedIcon : icon}
+                  alt={label}
+                  width={width}
+                  height={height}
+                />
+                {pathname === href && (
+                  <div className="fixed bottom-4 bg-black rounded-full mt-1" style={{ width: 5, height: 5, backgroundColor: 'var(--main-color)' }} />
+                )}
+              </div>
+            )}
+
+
+          </Link>
+        ))}
       </div>
     </nav>
   );
