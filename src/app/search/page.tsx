@@ -33,6 +33,14 @@ const searchRanking = [
   { index: 10, name: "패딩", category: "상의", state: 'down' },
 ]
 
+const categories = [
+  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample1.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample1.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample1.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample1.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample1.png' },
+]
+
 export default function Search() {
 
   const [selectedHistory, setSelectedHistory] = useState('trending')
@@ -42,9 +50,9 @@ export default function Search() {
   const RankingItem = ({ item, index }: { item: any, index: number }) => (
     <div className="flex justify-between items-center w-full">
       <div className="flex flex-row text-bold" style={{ color: '#787486', fontSize: 8 }}>
-        <div className="flex justify-center items-center w-9 py-2">{item.index}</div>
-        <div className="flex justify-center items-center w-9 py-2">{item.name}</div>
-        <div className="flex justify-center items-center w-9 py-2">{item.category}</div>
+        <div className="flex justify-center items-center w-10 py-2">{item.index}</div>
+        <div className="flex justify-center items-center w-10 py-2">{item.name}</div>
+        <div className="flex justify-center items-center w-10 py-2">{item.category}</div>
       </div>
 
       <div className="flex justify-center w-8">
@@ -175,7 +183,48 @@ export default function Search() {
           <div className="text-bold mt-6" style={{ fontSize: 10 }}>
             카테고리별 검색
           </div>
-          
+
+          <div className="w-full flex flex-row justify-between mt-4">
+            {categories.map((category) => (
+              <div
+                key={category.value}
+                className="flex flex-col items-center justify-center"
+              >
+                <Image
+                  src={category.image}
+                  alt={category.label}
+                  width={56}
+                  height={56}
+                />
+
+                <p className="mt-2.5 text-bold" style={{ color: '#787486', fontSize: 8 }}>{category.label}</p>
+              </div>
+            ))}  
+          </div>
+        </div>
+
+        <div className="w-full flex-col">
+          <div className="text-bold mt-6" style={{ fontSize: 10 }}>
+            상황별 검색
+          </div>
+
+          <div className="w-full flex flex-row justify-between mt-4">
+            {categories.map((category) => (
+              <div
+                key={category.value}
+                className="flex flex-col items-center justify-center"
+              >
+                <Image
+                  src={category.image}
+                  alt={category.label}
+                  width={56}
+                  height={56}
+                />
+
+                <p className="mt-2.5 text-bold" style={{ color: '#787486', fontSize: 8 }}>{category.label}</p>
+              </div>
+            ))}  
+          </div>
         </div>
 
       </div>

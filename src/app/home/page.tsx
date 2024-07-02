@@ -35,7 +35,7 @@ export default function Home() {
   
 
   return (
-    <div className='w-full h-full'>
+    <div className=''>
       <div className='p-3'>
         <div className='flex flex-row justify-between'>
           <p>MY_AI FASHION</p>
