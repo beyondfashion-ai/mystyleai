@@ -23,8 +23,8 @@ export default function RootLayout({
         className="flex justify-center"
       >
         <div
-          className="w-full h-screen"
-          style={{ maxWidth: 'var(--max-width)', backgroundColor: '#FDFCE9' }}
+          className="w-full"
+          style={{ maxWidth: 'var(--max-width)', backgroundColor: 'var(--background-color)' }}
 
         >
           {children}

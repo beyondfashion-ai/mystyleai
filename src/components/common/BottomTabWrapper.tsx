@@ -11,5 +11,10 @@ export default function BottomTabWrapper() {
     return null;
   }
 
-  return <BottomTab />;
+  return (
+    <div>
+      <div style={{ height: 60, backgroundColor: 'var(--background-color)' }} />
+      <BottomTab />
+    </div>
+  )
 }
