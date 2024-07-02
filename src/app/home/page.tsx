@@ -5,26 +5,26 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 const topMenus = [
-  { label: 'AI 추천', key: 'recommendation' },
-  { label: 'AI 제작 랭킹', key: 'ranking' },
-  { label: '팔로잉', key: 'following' }
+  { label: 'AI 추천', value: 'recommendation' },
+  { label: 'AI 제작 랭킹', value: 'ranking' },
+  { label: '팔로잉', value: 'following' }
 ]
 
 const clothesTypes = [
-  { label: 'ALL', key: 'all', icon: '/images/home/allIcon.png' },
-  { label: '랭킹별', key: 'ranking', icon: '/images/home/rankingIcon.png' },
-  { label: '체형별', key: 'body', icon: '/images/home/bodyIcon.png' },
-  { label: '상의', key: 'topClothes', icon: '/images/home/topClothesIcon.png' },
-  { label: '하의', key: 'bottomClothes', icon: '/images/home/bottomClothesIcon.png' },
+  { label: 'ALL', value: 'all', icon: '/images/home/allIcon.png' },
+  { label: '랭킹별', value: 'ranking', icon: '/images/home/rankingIcon.png' },
+  { label: '체형별', value: 'body', icon: '/images/home/bodyIcon.png' },
+  { label: '상의', value: 'topClothes', icon: '/images/home/topClothesIcon.png' },
+  { label: '하의', value: 'bottomClothes', icon: '/images/home/bottomClothesIcon.png' },
 ]
 
 const filterTypes = [
-  { label: '남', key: 'men' },
-  { label: '여', key: 'women' },
-  { label: '미니멀', key: 'minimal' },
-  { label: '아우터', key: 'outer' },
-  { label: '스트릿', key: 'street' },
-  { label: '키워드', key: 'keyword' },
+  { label: '남', value: 'men' },
+  { label: '여', value: 'women' },
+  { label: '미니멀', value: 'minimal' },
+  { label: '아우터', value: 'outer' },
+  { label: '스트릿', value: 'street' },
+  { label: '키워드', value: 'valueword' },
 ]
 
 
@@ -45,14 +45,14 @@ export default function Home() {
         <div className='flex flex-row mt-5 rounded-lg p-0.5' style={{ backgroundColor: '#E8E7D6' }}>
           {topMenus.map((menu) => (
             <div
-              key={menu.key}
+              key={menu.value}
               className={`flex flex-col items-center justify-center w-1/3 py-3 rounded-lg cursor-pointer text-bold`}
               style={{
-                backgroundColor: selectedMenu === menu.key ? 'var(--main-color)' : 'initial',
-                color: selectedMenu === menu.key ? 'white' : 'black',
+                backgroundColor: selectedMenu === menu.value ? 'var(--main-color)' : 'initial',
+                color: selectedMenu === menu.value ? 'white' : 'black',
                 fontSize: 10,
               }}
-              onClick={() => setSelectedMenu(menu.key)}
+              onClick={() => setSelectedMenu(menu.value)}
             >
               <p>{menu.label}</p>
             </div>
@@ -83,7 +83,7 @@ export default function Home() {
 
           {clothesTypes.map((clothesType) => (
             <div
-              key={clothesType.key}
+              key={clothesType.value}
               className='flex flex-col items-center justify-center'
             >
 
@@ -115,10 +115,10 @@ export default function Home() {
 
           {filterTypes.map((filterType) => (
             <div
-              key={filterType.key}
+              key={filterType.value}
               className='flex flex-col items-center justify-center ms-1 px-3.5 rounded-md cursor-pointer'
-              style={{ backgroundColor: '#F5EFE1', borderColor: selectedFilter == filterType.key ? '#BFA054' : '#E3D4B5', borderWidth: 1, paddingTop: 1, paddingBottom: 1 }}
-              onClick={() => setSelectedFilter(filterType.key)}
+              style={{ backgroundColor: '#F5EFE1', borderColor: selectedFilter == filterType.value ? '#BFA054' : '#E3D4B5', borderWidth: 1, paddingTop: 1, paddingBottom: 1 }}
+              onClick={() => setSelectedFilter(filterType.value)}
             >
               <p className='text-sm text-bold' style={{ color: '#787486', fontSize: 8 }}>{filterType.label}</p>
             </div>
