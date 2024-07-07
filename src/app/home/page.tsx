@@ -32,7 +32,7 @@ export default function Home() {
 
   const [selectedMenu, setSelectedMenu] = useState('recommendation')
   const [selectedFilter, setSelectedFilter] = useState('men')
-  
+
 
   return (
     <div className=''>
@@ -43,21 +43,43 @@ export default function Home() {
         </div>
 
         <div className='flex flex-row mt-5 rounded-lg p-0.5' style={{ backgroundColor: '#EAEAEA' }}>
-          {topMenus.map((menu) => (
+          {topMenus.map((menu, index) => (
             <div
               key={menu.value}
-              className={`flex flex-col items-center justify-center w-1/3 py-3 rounded-lg cursor-pointer text-bold`}
+              className={`flex flex-col items-center justify-center w-1/3 py-3 cursor-pointer text-bold relative`}
               style={{
                 backgroundColor: selectedMenu === menu.value ? 'var(--main-color)' : 'initial',
                 color: selectedMenu === menu.value ? 'white' : 'black',
                 fontSize: 10,
+                borderRadius: 8
+                // borderTopLeftRadius: index === 0 ? '0.5rem' : '0',
+                // borderTopRightRadius: index === topMenus.length - 1 ? '0.5rem' : '0',
               }}
               onClick={() => setSelectedMenu(menu.value)}
             >
+              {selectedMenu === 'following' && index === 0 && (
+                <div style={{
+                  position: 'absolute',
+                  right: 0,
+                  top: '15%',  // Adjust this value to cut the border from the top
+                  bottom: '15%', // Adjust this value to cut the border from the bottom
+                  borderRight: '1px solid #2E2D2D'
+                }}></div>
+              )}
+              {selectedMenu === 'recommendation' && index === 2 && (
+                <div style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: '15%',  // Adjust this value to cut the border from the top
+                  bottom: '15%', // Adjust this value to cut the border from the bottom
+                  borderLeft: '1px solid #2E2D2D'
+                }}></div>
+              )}
               <p>{menu.label}</p>
             </div>
           ))}
         </div>
+
 
         <div className='flex mt-4 p-4 rounded-lg justify-between items-center' style={{ backgroundColor: 'var(--main-color)' }}>
           <div className='flex flex-col'>
@@ -101,7 +123,7 @@ export default function Home() {
         </div>
 
         <div className='flex flex-row mt-4'>
-          <div 
+          <div
             className='flex height-full bg-white py-1 px-2 rounded-md cursor-pointer'
             style={{ backgroundColor: '#F5EFE1', borderColor: '#E3D4B5', borderWidth: 1 }}
           >

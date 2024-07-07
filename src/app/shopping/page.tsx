@@ -97,8 +97,21 @@ export default function Shopping() {
       <div className='px-2 mt-2.5 w-full grid grid-cols-3 gap-0.5'>
 
         {clothesStyles.map((clothesStyle) => (
-          <div className="relative rounded-b-lg">
+          <div className="flex relative rounded-b-lg">
             <img src='/images/home/samples/sample1.png' alt='1' className='w-full rounded-b-lg' style={{ height: clothesStyleHeight }} />
+            <div 
+              className="absolute"
+              style={{ zIndex: 10, top: 4, left: 4 }}
+
+            >
+              <Image
+                src='/images/common/heartIcon.svg'
+                alt='heart icon'
+                width={15}
+                height={15}
+              />
+             
+            </div>
             <div
               className="absolute w-full rounded-b-lg bottom-0 px-2.5 py-1"
               style={{ backgroundColor: '#0ED6D0' }}
@@ -107,12 +120,18 @@ export default function Shopping() {
                 className="flex flex-row w-full justify-between"
               >
                 <div className="text-bold text-white" style={{ fontSize: 10 }}>{clothesStyle.name}</div>
-                <Image
-                  src='/images/add/star.svg'
-                  alt='heart icon'
-                  width={14}
-                  height={11}
-                />
+                <div 
+                  className="absolute" style={{ right: 5, top: -5 }}
+                >
+                  <Image
+                    src='/images/shopping/cartIcon.svg'
+                    alt='cart icon'
+                    width={18}
+                    height={18}
+                  />
+
+                </div>
+
               </div>
 
               <div className="flex flex-row justify-between">
@@ -122,7 +141,7 @@ export default function Shopping() {
 
                 <div className="flex flex-row">
                   <Image
-                    src='/images/common/heartIcon.svg'
+                    src='/images/common/heart.svg'
                     alt='heart icon'
                     width={8}
                     height={8}

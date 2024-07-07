@@ -141,8 +141,23 @@ export default function MyPage() {
       <div className='px-2 mt-2.5 w-full grid grid-cols-3 gap-0.5'>
 
         {clothesStyles.map((clothesStyle) => (
-          <div className="relative rounded-b-lg">
+          <div className="flex relative rounded-b-lg">
             <img src='/images/home/samples/sample1.png' alt='1' className='w-full rounded-b-lg' style={{ height: clothesStyleHeight }} />
+
+            <div 
+              className="absolute"
+              style={{ zIndex: 10, top: 4, left: 4 }}
+
+            >
+              <Image
+                src='/images/common/heartIcon.svg'
+                alt='heart icon'
+                width={15}
+                height={15}
+              />
+             
+            </div>
+
             <div
               className="absolute w-full rounded-b-lg bottom-0 px-2.5 py-1"
               style={{ backgroundColor: '#0ED6D0' }}
