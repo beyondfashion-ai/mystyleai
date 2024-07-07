@@ -70,7 +70,7 @@ export default function Home() {
           </div>
           <div className='flex items-center'>
             <Image
-              src='/images/home/magicBar.png'
+              src='/images/common/magicBar.svg'
               alt='arrow right'
               width={43}
               height={43}
@@ -117,7 +117,7 @@ export default function Home() {
             <div
               key={filterType.value}
               className='flex flex-col items-center justify-center ms-1 px-3.5 rounded-md cursor-pointer'
-              style={{ backgroundColor: '#F5EFE1', borderColor: selectedFilter == filterType.value ? '#BFA054' : '#E3D4B5', borderWidth: 1, paddingTop: 1, paddingBottom: 1 }}
+              style={{ backgroundColor: selectedFilter == filterType.value ? 'var(--main-color)' : '#F5EFE1', borderColor: selectedFilter == filterType.value ? '#BFA054' : '#E3D4B5', borderWidth: 1, paddingTop: 1, paddingBottom: 1 }}
               onClick={() => setSelectedFilter(filterType.value)}
             >
               <p className='text-sm text-bold' style={{ color: '#787486', fontSize: 8 }}>{filterType.label}</p>

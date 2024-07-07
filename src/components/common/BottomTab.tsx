@@ -18,8 +18,8 @@ const BottomTab = memo(() => {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 flex justify-center bg-white"
-      style={{ maxWidth: 'var(--max-width)', height: 84, margin: '0 auto', boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.1)' }}
+      className="fixed bottom-0 left-0 right-0 flex justify-center"
+      style={{ maxWidth: 'var(--max-width)', height: 84, margin: '0 auto', boxShadow: '0px -2px 1px rgba(0, 0, 0, 0.1)', backgroundColor: '#FBF8F2'  }}
     >
       <div className="flex justify-around py-4 items-center" style={{ width: '100%' }}>
 
@@ -28,7 +28,15 @@ const BottomTab = memo(() => {
             {label == 'add' ? (
               <div 
                 className="flex flex-col items-center justify-center"
-                style={{ width: 55, height: 55, backgroundColor: pathname === href ? 'var(--main-color)' : '#27343E', borderRadius: 55 / 2, color: 'white' }}
+                style={{ 
+                  width: 55, 
+                  height: 55, 
+                  backgroundColor: 'var(--main-color)',
+                  border: pathname === href ? '1px solid #085757' : '1px solid #949494',
+                  // backgroundColor: pathname === href ? 'var(--main-color)' : '#27343E', 
+                  borderRadius: 55 / 2, 
+                  color: 'white' 
+                }}
               >
                 <Image
                   src={icon}

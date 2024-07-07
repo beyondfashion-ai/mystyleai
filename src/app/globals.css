@@ -5,7 +5,7 @@
 :root {
   --foreground-rgb: 0, 0, 0;
   --main-color: #0ED6D0;
-  --background-color: #FDFCE9;
+  --background-color: #fff;
   --max-width: 500px;
 }
 
@@ -61,6 +61,10 @@ body {
   font-weight: 600;
   font-style: normal;
   src: url("/fonts/Pretendard-SemiBold.woff") format('woff');
+}
+
+.bg-main-background {
+  background-color: #0ED6D0;
 }
 
 .cursor-pointer {
