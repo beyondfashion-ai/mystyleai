@@ -42,7 +42,7 @@ export default function Home() {
           <Image src='/images/svgs/alarmIcon.svg' alt='alarm icon' width={11} height={12} />
         </div>
 
-        <div className='flex flex-row mt-5 rounded-lg p-0.5' style={{ backgroundColor: '#E8E7D6' }}>
+        <div className='flex flex-row mt-5 rounded-lg p-0.5' style={{ backgroundColor: '#EAEAEA' }}>
           {topMenus.map((menu) => (
             <div
               key={menu.value}
