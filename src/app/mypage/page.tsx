@@ -146,7 +146,7 @@ export default function MyPage() {
 
             <div 
               className="absolute"
-              style={{ zIndex: 10, top: 4, left: 4 }}
+              style={{  top: 4, left: 4 }}
 
             >
               <Image

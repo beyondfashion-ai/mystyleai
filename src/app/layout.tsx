@@ -24,7 +24,7 @@ export default function RootLayout({
       >
         <div
           className="w-full"
-          style={{ maxWidth: 'var(--max-width)', backgroundColor: 'var(--background-color)', minHeight: '100vh' }}
+          style={{ maxWidth: 'var(--max-width)', minHeight: '100vh', backgroundColor: 'var(--background-color)', }}
 
         >
           {children}

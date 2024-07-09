@@ -101,7 +101,7 @@ export default function Shopping() {
             <img src='/images/home/samples/sample1.png' alt='1' className='w-full rounded-b-lg' style={{ height: clothesStyleHeight }} />
             <div 
               className="absolute"
-              style={{ zIndex: 10, top: 4, left: 4 }}
+              style={{ top: 4, left: 4 }}
 
             >
               <Image

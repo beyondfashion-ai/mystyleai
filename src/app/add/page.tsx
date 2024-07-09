@@ -25,9 +25,84 @@ export default function Add() {
 
   const [selectedBasicStyle, setSelectedBasicStyle] = useState('gender')
   const [prompt, setPrompt] = useState('')
+  const [isModalVisible, setIsModalVisible] = useState(false)
+
+  const createClothesImage = () => {
+    console.log('create clothes image')
+    setPrompt('')
+    setIsModalVisible(true)
+  }
+
+  const closeModal = () => {
+    setIsModalVisible(false)
+  }
 
   return (
     <div>
+      {isModalVisible && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={closeModal}
+        >
+          <div
+            className="w-full mx-3 p-2 rounded-2xl bg-main-background"
+            style={{ maxWidth: 343 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              className="flex flex-col w-full p-2 rounded-2xl items-center justify-center"
+              style={{ height: 312, border: '2px dashed white' }}
+            >
+              <div style={{ position: 'relative', width: 96, height: 96 }}>
+                <Image
+                  src='/images/add/processModalCircle.svg'
+                  alt='plus'
+                  width={96}
+                  height={96}
+                />
+
+                <div
+                  className="w-full h-full text-bold bg-white rounded-full flex items-center justify-center"
+                  style={{
+                    width: 80,
+                    height: 80,
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    fontSize: 25,
+                    color: 'var(--main-color)',
+
+                  }}
+                >
+                  <div>
+                    10%
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div
+                className="text-semiBold text-white"
+                style={{ fontSize: 32, color: '#FCFDFE' }}
+              >
+                옷 제작중
+              </div>
+
+              <div
+                className="text-medium text-white"
+                style={{ fontSize: 13, color: '#FCFDFE' }}
+              >
+                열심히 디자이너님의 옷을 만드는 중이에요!
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      )}
+
       <div className="px-3">
         <Header title="AI 제작하기" />
 
@@ -123,11 +198,11 @@ export default function Add() {
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           className="w-full mt-2 p-2 border rounded-md"
-          style={{ fontSize: 10, height: 90, resize: 'none', borderColor: '#BFA054' }}
+          style={{ fontSize: 10, height: 90, resize: 'none', borderColor: '#BFA054', backgroundColor: '#F5EFE1' }}
           placeholder="이미지에 대한 설명을 입력해주세요."
         />
 
-        <div 
+        <div
           className="flex w-full justify-end"
           style={{ fontSize: 7, color: '#B0B0B0' }}
         >
@@ -137,7 +212,7 @@ export default function Add() {
 
         <div
           className="flex w-full items-center justify-center py-2.5 bg-main-background rounded-md cursor-pointer"
-          onClick={() => setPrompt('')}
+          onClick={() => createClothesImage()}
           style={{ marginTop: 44 }}
         >
           <div className="flex flex-row items-center relative">
