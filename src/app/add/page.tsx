@@ -3,6 +3,7 @@
 import Header from "@/components/common/Header";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const recommendedStyles = [
   { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/add/styles/styleDior.png' },
@@ -23,6 +24,8 @@ const basicStyles = [
 
 export default function Add() {
 
+  const router = useRouter()
+
   const [selectedBasicStyle, setSelectedBasicStyle] = useState('gender')
   const [prompt, setPrompt] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -37,71 +40,13 @@ export default function Add() {
     setIsModalVisible(false)
   }
 
+  const navigateToResultPage = () => {
+    router.push('/add/result')
+  }
+
   return (
     <div>
-      {isModalVisible && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-          onClick={closeModal}
-        >
-          <div
-            className="w-full mx-3 p-2 rounded-2xl bg-main-background"
-            style={{ maxWidth: 343 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div
-              className="flex flex-col w-full p-2 rounded-2xl items-center justify-center"
-              style={{ height: 312, border: '2px dashed white' }}
-            >
-              <div style={{ position: 'relative', width: 96, height: 96 }}>
-                <Image
-                  src='/images/add/processModalCircle.svg'
-                  alt='plus'
-                  width={96}
-                  height={96}
-                />
-
-                <div
-                  className="w-full h-full text-bold bg-white rounded-full flex items-center justify-center"
-                  style={{
-                    width: 80,
-                    height: 80,
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    fontSize: 25,
-                    color: 'var(--main-color)',
-
-                  }}
-                >
-                  <div>
-                    10%
-                  </div>
-                </div>
-
-              </div>
-
-
-              <div
-                className="text-semiBold text-white"
-                style={{ fontSize: 32, color: '#FCFDFE' }}
-              >
-                옷 제작중
-              </div>
-
-              <div
-                className="text-medium text-white"
-                style={{ fontSize: 13, color: '#FCFDFE' }}
-              >
-                열심히 디자이너님의 옷을 만드는 중이에요!
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      )}
+      
 
       <div className="px-3">
         <Header title="AI 제작하기" />
@@ -234,6 +179,71 @@ export default function Add() {
         </div>
 
       </div>
+
+      {isModalVisible && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={closeModal}
+        >
+          <div
+            className="w-full mx-3 p-2 rounded-2xl bg-main-background"
+            style={{ maxWidth: 343 }}
+            // onClick={(e) => e.stopPropagation()}
+            onClick={navigateToResultPage}
+          >
+            <div
+              className="flex flex-col w-full p-2 rounded-2xl items-center justify-center"
+              style={{ height: 312, border: '2px dashed white' }}
+            >
+              <div className="rounded-full" style={{ position: 'relative', width: 96, height: 96, boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
+                <Image
+                  src='/images/add/processModalCircle.svg'
+                  alt='plus'
+                  width={96}
+                  height={96}
+                />
+
+                <div
+                  className="w-full h-full text-bold bg-white rounded-full flex items-center justify-center"
+                  style={{
+                    width: 80,
+                    height: 80,
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    fontSize: 25,
+                    color: 'var(--main-color)',
+
+                  }}
+                >
+                  <div>
+                    10%
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div
+                className="text-semiBold text-white mt-4"
+                style={{ fontSize: 32, color: '#FCFDFE' }}
+              >
+                옷 제작중
+              </div>
+
+              <div
+                className="text-medium text-white"
+                style={{ fontSize: 13, color: '#FCFDFE' }}
+              >
+                열심히 디자이너님의 옷을 만드는 중이에요!
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      )}
 
 
 
