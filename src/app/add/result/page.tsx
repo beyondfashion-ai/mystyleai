@@ -1,15 +1,239 @@
-import Header from "@/components/common/Header";
+"use client"
 
+import Header from "@/components/common/Header";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+
+
+const resultImages = [
+
+]
 
 export default function result() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const prompt = searchParams.get('prompt');
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const closeModal = () => {
+    setIsModalVisible(false)
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!prompt) {
+        router.replace('/add');
+      } else {
+        console.log('prompt', prompt);
+        // setIsModalVisible(true);
+
+        try {
+          // const response = await fetch('/api/generateImage', {
+          //   method: 'POST'
+          // });
+          // if (!response.ok) {
+          //   throw new Error('Fetch failed');
+          // }
+
+          // const data = await response.json();
+          // console.log(data);
+
+          // setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
+
+          setIsModalVisible(false);
+
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [prompt, router]);
+
 
   return (
     <div>
       <div className="px-3">
         <Header title="AI 제작하기" />
 
-        
+        <div
+          className="flex relative w-full bg-white rounded-2xl mt-4"
+          style={{
+            paddingTop: `${(340 / 363) * 100}%`,
+            // border: '2px solid var(--main-color)',
+          }}
+        >
+          <div
+            className="flex flex-row absolute w-full h-full rounded-xl top-0 backdrop-blur-md px-2.5 py-1 overflow-hidden"
+            style={{ border: '2px solid var(--main-color)' }}
+          >
+            <Image
+              src='/images/add/result/sampleImage.png'
+              alt='heart icon'
+              layout="fill"  // 이미지를 부모 요소의 크기에 맞게 확장
+              objectFit="cover"  // 이미지를 부모 요소에 맞게 잘라서 보여줌
+              className="rounded-md"  // 원하는 스타일 클래스 추가
+            />
+          </div>
+
+          <div
+            className="flex flex-row justify-center  absolute w-full rounded-b-xl bottom-0 backdrop-blur-md px-2.5 py-2"
+            style={{ backgroundColor: 'rgba(14, 214, 208, 0.4)' }}
+          >
+            <div
+              className="flex flex-col justify-center items-center"
+            >
+              <Image
+                src='/images/add/result/copyIcon.svg'
+                alt='heart icon'
+                width={12}
+                height={15}
+              />
+              <div className="mt-0.5text-regular" style={{ fontSize: 11, color: '#fff' }}>copy</div>
+            </div>
+
+            <div
+              className="flex flex-col justify-center items-center mt-0.5"
+              style={{ marginLeft: 40, marginRight: 40 }}
+            >
+              <Image
+                src='/images/add/result/downloadIcon.svg'
+                alt='heart icon'
+                width={14}
+                height={15}
+              />
+              <div className="mt-0.5 text-regular" style={{ fontSize: 11, color: '#fff' }}>Download</div>
+            </div>
+
+            <div
+              className="flex flex-col justify-center items-center"
+            >
+              <Image
+                src='/images/add/result/heartIcon.svg'
+                alt='heart icon'
+                width={17}
+                height={15}
+              />
+              <div className="mt-0.5 text-regular" style={{ fontSize: 11, color: '#fff' }}>save</div>
+            </div>
+
+            {/* <div
+              className="flex flex-col justify-center items-center py-1"
+              style={{ marginLeft: 40, marginRight: 40 }}
+            >
+              <Image
+                src='/images/add/result/downloadIcon.svg'
+                alt='heart icon'
+                width={14}
+                height={15}
+              />
+              <div className="mt-0.5 text-regular" style={{ fontSize: 11, color: '#fff' }}>Download</div>
+            </div>
+
+            <div
+              className="flex flex-col justify-center items-center py-1"
+            >
+              <Image
+                src='/images/add/result/heartIcon.svg'
+                alt='heart icon'
+                width={17}
+                height={15}
+              />
+              <div className="mt-0.5 text-regular" style={{ fontSize: 11, color: '#fff' }}>Save</div>
+            </div> */}
+
+          </div>
+
+
+
+          {/* <div
+            className="absolute w-full rounded-b-md bottom-0 backdrop-blur-md px-2.5 py-1 bg-black"
+            style={{ backgroundColor: 'rgba(14, 214, 208, 0.5)' }}
+          >
+            12345
+          </div> */}
+
+        </div>
+
+        {imageSrc && (
+          <Image
+            src={imageSrc}
+            alt="Generated Image"
+            layout="fill"
+            objectFit="contain"
+            className="rounded-full"
+          />
+        )}
       </div>
+
+      {isModalVisible && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          onClick={closeModal}
+        >
+          <div
+            className="w-full mx-3 p-2 rounded-2xl bg-main-background"
+            style={{ maxWidth: 343 }}
+          // onClick={(e) => e.stopPropagation()}
+          // onClick={navigateToResultPage}
+          >
+            <div
+              className="flex flex-col w-full p-2 rounded-2xl items-center justify-center"
+              style={{ height: 312, border: '2px dashed white' }}
+            >
+              <div className="rounded-full" style={{ position: 'relative', width: 96, height: 96, boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
+                <Image
+                  src='/images/add/processModalCircle.svg'
+                  alt='plus'
+                  width={96}
+                  height={96}
+                />
+
+                <div
+                  className="w-full h-full text-bold bg-white rounded-full flex items-center justify-center"
+                  style={{
+                    width: 80,
+                    height: 80,
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    fontSize: 25,
+                    color: 'var(--main-color)',
+
+                  }}
+                >
+                  <div>
+                    10%
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div
+                className="text-semiBold text-white mt-4"
+                style={{ fontSize: 32, color: '#FCFDFE' }}
+              >
+                옷 제작중
+              </div>
+
+              <div
+                className="text-medium text-white"
+                style={{ fontSize: 13, color: '#FCFDFE' }}
+              >
+                열심히 디자이너님의 옷을 만드는 중이에요!
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      )}
 
     </div>
   )
