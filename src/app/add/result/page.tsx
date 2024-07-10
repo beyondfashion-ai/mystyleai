@@ -81,6 +81,28 @@ export default function result() {
           </div>
 
           <div
+            className="flex flex-row absolute w-full top-0 py-1 px-2"
+          >
+            <div
+              className="py-1 px-3 rounded-md text-bold"
+              style={{ backgroundColor: '#F5EFE1', border: '1px solid #BFA054', color: '#787486', fontSize: 7 }}
+            >
+              이전으로
+            </div>
+
+            <div
+              className="py-1 px-3 rounded-md ms-1 text-bold"
+              style={{ backgroundColor: '#F5EFE1', border: '1px solid #BFA054', color: '#787486', fontSize: 7 }}
+            >
+              업스케일
+            </div>
+
+            
+          </div>
+
+
+
+          <div
             className="flex flex-row justify-center  absolute w-full rounded-b-xl bottom-0 backdrop-blur-md px-2.5 py-2"
             style={{ backgroundColor: 'rgba(14, 214, 208, 0.4)' }}
           >
@@ -121,30 +143,7 @@ export default function result() {
               <div className="mt-0.5 text-regular" style={{ fontSize: 11, color: '#fff' }}>save</div>
             </div>
 
-            {/* <div
-              className="flex flex-col justify-center items-center py-1"
-              style={{ marginLeft: 40, marginRight: 40 }}
-            >
-              <Image
-                src='/images/add/result/downloadIcon.svg'
-                alt='heart icon'
-                width={14}
-                height={15}
-              />
-              <div className="mt-0.5 text-regular" style={{ fontSize: 11, color: '#fff' }}>Download</div>
-            </div>
-
-            <div
-              className="flex flex-col justify-center items-center py-1"
-            >
-              <Image
-                src='/images/add/result/heartIcon.svg'
-                alt='heart icon'
-                width={17}
-                height={15}
-              />
-              <div className="mt-0.5 text-regular" style={{ fontSize: 11, color: '#fff' }}>Save</div>
-            </div> */}
+            
 
           </div>
 
