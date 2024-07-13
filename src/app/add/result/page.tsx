@@ -7,7 +7,10 @@ import Image from "next/image";
 
 
 const resultImages = [
-
+  { src: '/images/add/result/sampleImage.png' },
+  { src: '/images/add/result/sampleImage.png' },
+  { src: '/images/add/result/sampleImage.png' },
+  { src: '/images/add/result/sampleImage.png' }
 ]
 
 export default function result() {
@@ -16,8 +19,10 @@ export default function result() {
   const searchParams = useSearchParams();
   const prompt = searchParams.get('prompt');
   const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [title, setTitle] = useState<string>("");
+  const [comment, setComment] = useState<string>("");
 
-  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isModalVisible, setIsModalVisible] = useState(true)
   const closeModal = () => {
     setIsModalVisible(false)
   }
@@ -31,17 +36,17 @@ export default function result() {
         // setIsModalVisible(true);
 
         try {
-          // const response = await fetch('/api/generateImage', {
-          //   method: 'POST'
-          // });
-          // if (!response.ok) {
-          //   throw new Error('Fetch failed');
-          // }
+          const response = await fetch('/api/generateImage', {
+            method: 'POST'
+          });
+          if (!response.ok) {
+            throw new Error('Fetch failed');
+          }
 
-          // const data = await response.json();
-          // console.log(data);
+          const data = await response.json();
+          console.log(data);
 
-          // setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
+          setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
 
           setIsModalVisible(false);
 
@@ -71,13 +76,23 @@ export default function result() {
             className="flex flex-row absolute w-full h-full rounded-xl top-0 backdrop-blur-md px-2.5 py-1 overflow-hidden"
             style={{ border: '2px solid var(--main-color)' }}
           >
-            <Image
+            {imageSrc ? (
+              <Image
+                src={imageSrc}
+                alt="Generated Image"
+                layout="fill"
+                objectFit="cover"
+                className="rounded-md"
+              />
+            ) : (<Image
               src='/images/add/result/sampleImage.png'
               alt='heart icon'
               layout="fill"  // 이미지를 부모 요소의 크기에 맞게 확장
               objectFit="cover"  // 이미지를 부모 요소에 맞게 잘라서 보여줌
               className="rounded-md"  // 원하는 스타일 클래스 추가
             />
+            )}
+
           </div>
 
           <div
@@ -97,7 +112,7 @@ export default function result() {
               업스케일
             </div>
 
-            
+
           </div>
 
 
@@ -143,22 +158,41 @@ export default function result() {
               <div className="mt-0.5 text-regular" style={{ fontSize: 11, color: '#fff' }}>save</div>
             </div>
 
-            
+
 
           </div>
 
-
-
-          {/* <div
-            className="absolute w-full rounded-b-md bottom-0 backdrop-blur-md px-2.5 py-1 bg-black"
-            style={{ backgroundColor: 'rgba(14, 214, 208, 0.5)' }}
-          >
-            12345
-          </div> */}
-
         </div>
 
-        {imageSrc && (
+        <div className="mt-3 grid grid-cols-4 gap-1">
+          <img src='/images/add/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
+          <img src='/images/add/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
+          <img src='/images/add/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
+          <img src='/images/add/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
+        </div>
+
+        <div className="text-bold mt-3" style={{ fontSize: 10 }}>
+          제품 설명 입력하기
+        </div>
+
+        <textarea
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full mt-2 p-2 border rounded-md"
+          style={{ fontSize: 10, height: 32, resize: 'none', borderColor: '#BFA054', backgroundColor: '#F5EFE1', overflow: 'hidden' }}
+          placeholder="제목을 입력해주세요."
+
+        />
+
+        <textarea
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          className="w-full mt-0.5 p-2 border rounded-md"
+          style={{ fontSize: 10, height: 60, resize: 'none', borderColor: '#BFA054', backgroundColor: '#F5EFE1' }}
+          placeholder={`상세 설명을 입력해 주세요.\nex) 샤넬 스타일로 아우터를 만들어 봤어요 #겨울 아우터 #샤넬스타일 #아우터`}
+        />
+
+        {/* {imageSrc && (
           <Image
             src={imageSrc}
             alt="Generated Image"
@@ -166,7 +200,19 @@ export default function result() {
             objectFit="contain"
             className="rounded-full"
           />
-        )}
+        )} */}
+
+        <div
+          className="flex w-full items-center justify-center py-2.5 bg-main-background rounded-md cursor-pointer"
+          // onClick={() => createClothesImage()}
+          style={{ marginTop: 44 }}
+        >
+          <div className="text-white text-bold" style={{ fontSize: 15 }}>
+            등록하기
+          </div>
+
+
+        </div>
       </div>
 
       {isModalVisible && (
