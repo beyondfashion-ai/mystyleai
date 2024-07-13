@@ -45,7 +45,7 @@ export default function MyPage() {
       <div className="flex flex-row items-center mt-4 px-10">
         <div>
           <Image
-            src="/images/mypage/profile.png"
+            src="/images/myPage/profile.png"
             alt="profile"
             width={100}
             height={100}
