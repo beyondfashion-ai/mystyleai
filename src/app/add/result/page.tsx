@@ -1,8 +1,8 @@
 "use client"
 
 import Header from "@/components/common/Header";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 
@@ -13,11 +13,12 @@ const resultImages = [
   { src: '/images/add/result/sampleImage.png' }
 ]
 
-const ResultComponent = () => {
+export default function result() {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const prompt = searchParams.get('prompt');
+  // const searchParams = useSearchParams();
+  // const prompt = searchParams.get('prompt');
+  const prompt = ""
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [title, setTitle] = useState<string>("");
   const [comment, setComment] = useState<string>("");
@@ -282,12 +283,4 @@ const ResultComponent = () => {
 
     </div>
   )
-}
-
-export default function ResultPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ResultComponent />
-    </Suspense>
-  );
 }
