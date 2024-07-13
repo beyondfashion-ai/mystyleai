@@ -2,7 +2,7 @@
 
 import Header from "@/components/common/Header";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 
 
@@ -13,7 +13,7 @@ const resultImages = [
   { src: '/images/add/result/sampleImage.png' }
 ]
 
-export default function result() {
+const ResultComponent = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -282,4 +282,12 @@ export default function result() {
 
     </div>
   )
+}
+
+export default function ResultPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResultComponent />
+    </Suspense>
+  );
 }
