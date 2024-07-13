@@ -98,68 +98,75 @@ export default function Shopping() {
 
         {clothesStyles.map((clothesStyle) => (
           <div className="flex relative rounded-b-lg">
-            {/* <img src='/images/home/samples/sample1.png' alt='1' className='w-full rounded-b-lg' style={{ height: clothesStyleHeight }} /> */}
-            <div 
-              className="absolute"
-              style={{ top: 4, left: 4 }}
-
-            >
-              <Image
-                src='/images/common/heartIcon.svg'
-                alt='heart icon'
-                width={15}
-                height={15}
+            <div className="relative w-full" style={{ paddingTop: '125%' }}>
+              <img
+                src='/images/home/samples/sample1.png'
+                alt='1'
+                className='absolute top-0 left-0 w-full h-full object-cover rounded-b-lg'
               />
-             
-            </div>
-            <div
-              className="absolute w-full rounded-b-lg bottom-0 px-2.5 py-1"
-              style={{ backgroundColor: '#0ED6D0' }}
-            >
+              {/* <img src='/images/home/samples/sample1.png' alt='1' className='w-full rounded-b-lg' style={{ height: clothesStyleHeight }} /> */}
               <div
-                className="flex flex-row w-full justify-between"
+                className="absolute"
+                style={{ top: 4, left: 4 }}
+
               >
-                <div className="text-bold text-white" style={{ fontSize: 10 }}>{clothesStyle.name}</div>
-                <div 
-                  className="absolute" style={{ right: 5, top: -5 }}
+                <Image
+                  src='/images/common/heartIcon.svg'
+                  alt='heart icon'
+                  width={15}
+                  height={15}
+                />
+
+              </div>
+              <div
+                className="absolute w-full rounded-b-lg bottom-0 px-2.5 py-1"
+                style={{ backgroundColor: '#0ED6D0' }}
+              >
+                <div
+                  className="flex flex-row w-full justify-between"
                 >
-                  <Image
-                    src='/images/shopping/cartIcon.svg'
-                    alt='cart icon'
-                    width={18}
-                    height={18}
-                  />
+                  <div className="text-bold text-white" style={{ fontSize: 10 }}>{clothesStyle.name}</div>
+                  <div
+                    className="absolute" style={{ right: 5, top: -5 }}
+                  >
+                    <Image
+                      src='/images/shopping/cartIcon.svg'
+                      alt='cart icon'
+                      width={18}
+                      height={18}
+                    />
+
+                  </div>
 
                 </div>
 
+                <div className="flex flex-row justify-between">
+                  <div className="text-bold" style={{ color: '#5A5858', fontSize: 7 }}>
+                    {clothesStyle.price} 원
+                  </div>
+
+                  <div className="flex flex-row">
+                    <Image
+                      src='/images/common/heart.svg'
+                      alt='heart icon'
+                      width={8}
+                      height={8}
+                    />
+                    <div className="text-bold text-white ms-1 me-2" style={{ fontSize: 7 }}>{clothesStyle.numOfLikes}</div>
+                    <Image
+                      src='/images/common/commentIcon.svg'
+                      alt='comment icon'
+                      width={6}
+                      height={6}
+                    />
+                    <div className="text-bold text-white ms-1" style={{ fontSize: 7 }}>{clothesStyle.numOfComments}</div>
+
+                  </div>
+
+                </div>
+
+                {/* <div className="text-bold text-white" style={{ fontSize: 10 }}>{clothesStyle.name}</div> */}
               </div>
-
-              <div className="flex flex-row justify-between">
-                <div className="text-bold" style={{ color: '#5A5858', fontSize: 7 }}>
-                  {clothesStyle.price} 원
-                </div>
-
-                <div className="flex flex-row">
-                  <Image
-                    src='/images/common/heart.svg'
-                    alt='heart icon'
-                    width={8}
-                    height={8}
-                  />
-                  <div className="text-bold text-white ms-1 me-2" style={{ fontSize: 7 }}>{clothesStyle.numOfLikes}</div>
-                  <Image
-                    src='/images/common/commentIcon.svg'
-                    alt='comment icon'
-                    width={6}
-                    height={6}
-                  />
-                  <div className="text-bold text-white ms-1" style={{ fontSize: 7 }}>{clothesStyle.numOfComments}</div>
-
-                </div>
-
-              </div>
-
-              {/* <div className="text-bold text-white" style={{ fontSize: 10 }}>{clothesStyle.name}</div> */}
             </div>
           </div>
         ))}
