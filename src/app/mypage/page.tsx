@@ -25,8 +25,8 @@ export default function MyPage() {
 
   const [selectedMenu, setSelectedMenu] = useState('history')
 
-  const windowWidth = window.innerWidth > 600 ? 600 : window.innerWidth
-  const clothesStyleHeight = windowWidth * (7 / 18)
+  // const windowWidth = window.innerWidth > 600 ? 600 : window.innerWidth
+  // const clothesStyleHeight = windowWidth * (7 / 18)
 
   return (
     <div>
@@ -142,7 +142,12 @@ export default function MyPage() {
 
         {clothesStyles.map((clothesStyle) => (
           <div className="flex relative rounded-b-lg">
-            <img src='/images/home/samples/sample1.png' alt='1' className='w-full rounded-b-lg' style={{ height: clothesStyleHeight }} />
+            {/* <img 
+              src='/images/home/samples/sample1.png'
+              alt='1'
+              className='w-full rounded-b-lg'
+              style={{ height: clothesStyleHeight }}
+            /> */}
 
             <div 
               className="absolute"
