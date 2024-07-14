@@ -40,6 +40,7 @@ export default function result() {
         const response = await fetch('/api/generateImage', {
           method: 'POST'
         });
+        console.log(response)
         if (!response.ok) {
           throw new Error('Fetch failed');
         }
