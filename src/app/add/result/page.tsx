@@ -30,31 +30,31 @@ export default function result() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!prompt) {
-        router.replace('/add');
-      } else {
-        console.log('prompt', prompt);
-        // setIsModalVisible(true);
+      // if (!prompt) {
+      //   router.replace('/add');
+      // } else {
+      //   console.log('prompt', prompt);
+      //   // setIsModalVisible(true);
 
-        try {
-          const response = await fetch('/api/generateImage', {
-            method: 'POST'
-          });
-          if (!response.ok) {
-            throw new Error('Fetch failed');
-          }
-
-          const data = await response.json();
-          console.log(data);
-
-          setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
-
-          setIsModalVisible(false);
-
-        } catch (error) {
-          console.error('Error fetching data:', error);
+      try {
+        const response = await fetch('/api/generateImage', {
+          method: 'POST'
+        });
+        if (!response.ok) {
+          throw new Error('Fetch failed');
         }
+
+        const data = await response.json();
+        console.log(data);
+
+        setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
+
+        setIsModalVisible(false);
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
+      // }
     };
 
     fetchData();
