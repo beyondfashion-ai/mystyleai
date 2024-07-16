@@ -13,7 +13,7 @@ const resultImages = [
   { src: '/images/add/result/sampleImage.png' }
 ]
 
-export default function result() {
+function ResultPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const prompt = ""
@@ -62,7 +62,6 @@ export default function result() {
 
 
   return (
-    <Suspense>
       <div>
         <div className="px-3">
           <Header title="AI 제작하기" />
@@ -283,15 +282,14 @@ export default function result() {
         )}
 
       </div>
-    </Suspense>
 
   )
 }
 
-// export function result() {
-//   return (
-//     <Suspense>
-//       <ResultPage />
-//     </Suspense>
-//   )
-// }
+export default function result() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResultPage />
+    </Suspense>
+  )
+}
