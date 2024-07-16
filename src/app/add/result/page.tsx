@@ -1,7 +1,7 @@
 "use client"
 
 import Header from "@/components/common/Header";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -15,51 +15,50 @@ const resultImages = [
 
 export default function result() {
   const router = useRouter();
-  const pathname = usePathname();
-  // const searchParams = useSearchParams();
-  // const prompt = searchParams.get('prompt');
+  const searchParams = useSearchParams();
   const prompt = ""
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [title, setTitle] = useState<string>("");
   const [comment, setComment] = useState<string>("");
+  const generateType = searchParams.get('type');
+  console.log(generateType)
 
   const [isModalVisible, setIsModalVisible] = useState(true)
   const closeModal = () => {
     setIsModalVisible(false)
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // if (!prompt) {
-      //   router.replace('/add');
-      // } else {
-      //   console.log('prompt', prompt);
-      //   // setIsModalVisible(true);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     // if (!prompt) {
+  //     //   router.replace('/add');
+  //     // } else {
+  //     //   console.log('prompt', prompt);
+  //     //   // setIsModalVisible(true);
 
-      try {
-        const response = await fetch('/api/generateImage', {
-          method: 'POST'
-        });
-        console.log(response)
-        if (!response.ok) {
-          throw new Error('Fetch failed');
-        }
+  //     try {
+  //       const response = await fetch('/api/generateImage', {
+  //         method: 'POST'
+  //       });
+  //       console.log(response)
+  //       if (!response.ok) {
+  //         throw new Error('Fetch failed');
+  //       }
 
-        const data = await response.json();
-        console.log(data);
+  //       const data = await response.json();
+  //       console.log(data);
 
-        setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
+  //       setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
+  //       setIsModalVisible(false);
 
-        setIsModalVisible(false);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //     // }
+  //   };
 
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-      // }
-    };
-
-    fetchData();
-  }, [prompt, router]);
+  //   fetchData();
+  // }, [prompt, router]);
 
 
   return (

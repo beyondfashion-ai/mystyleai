@@ -38,7 +38,8 @@ export default function Add() {
 
   const createClothesImage = async () => {
     console.log('create clothes image');
-    router.push('/add/result?prompt=hello')
+    router.push(`/add/result?type=${selectedMenu}`)
+    
   };
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
