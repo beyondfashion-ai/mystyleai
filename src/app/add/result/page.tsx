@@ -28,37 +28,37 @@ function ResultPage() {
     setIsModalVisible(false)
   }
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     // if (!prompt) {
-  //     //   router.replace('/add');
-  //     // } else {
-  //     //   console.log('prompt', prompt);
-  //     //   // setIsModalVisible(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      // if (!prompt) {
+      //   router.replace('/add');
+      // } else {
+      //   console.log('prompt', prompt);
+      //   // setIsModalVisible(true);
 
-  //     try {
-  //       const response = await fetch('/api/generateImage', {
-  //         method: 'POST'
-  //       });
-  //       console.log(response)
-  //       if (!response.ok) {
-  //         throw new Error('Fetch failed');
-  //       }
+      try {
+        const response = await fetch('/api/generateImage', {
+          method: 'POST'
+        });
+        console.log(response)
+        if (!response.ok) {
+          throw new Error('Fetch failed');
+        }
 
-  //       const data = await response.json();
-  //       console.log(data);
+        const data = await response.json();
+        console.log(data);
 
-  //       setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
-  //       setIsModalVisible(false);
+        setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
+        setIsModalVisible(false);
 
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //     // }
-  //   };
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+      // }
+    };
 
-  //   fetchData();
-  // }, [prompt, router]);
+    fetchData();
+  }, [prompt, router]);
 
 
   return (
