@@ -4,6 +4,7 @@ import Header from "@/components/common/Header";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
+import fs from 'fs';
 
 
 const resultImages = [
@@ -30,35 +31,40 @@ function ResultPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // if (!prompt) {
-      //   router.replace('/add');
-      // } else {
-      //   console.log('prompt', prompt);
-      //   // setIsModalVisible(true);
-
-      if (generateType === 'prompt') {
-
+      if (!generateType) {
+        router.replace('/add');
+      } else {
         try {
+
+          const formData = new FormData();
+          formData.append('generateType', generateType);
+
           const response = await fetch('/api/generateImage', {
-            method: 'POST'
+            method: 'POST',
+            body: formData
           });
-          console.log(response)
+
           if (!response.ok) {
             throw new Error('Fetch failed');
           }
-
+  
           const data = await response.json();
-          console.log(data);
-
-          setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
+  
+          if (generateType == 'prompt') {
+            setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
+          } else if (generateType == 'sketch') {
+            setImageSrc(`data:image/png;base64,${data.base64}`);
+          }
           setIsModalVisible(false);
-
+  
         } catch (error) {
           console.error('Error fetching data:', error);
         }
-      } else {
-        console.log('sketch');
       }
+
+      
+
+    
     };
 
     fetchData();
