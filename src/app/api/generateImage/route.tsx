@@ -6,6 +6,8 @@ import axios from 'axios';
 import path from 'path';
 import FormData from 'form-data';
 
+export const maxDuration = 30
+
 const engineId = "stable-diffusion-xl-1024-v1-0"
 
 export async function POST(req: NextRequest, res: NextResponse) {
