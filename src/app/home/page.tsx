@@ -4,6 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 const topMenus = [
   { label: 'AI 추천', value: 'recommendation' },
   { label: 'AI 제작 랭킹', value: 'ranking' },
@@ -27,11 +30,36 @@ const filterTypes = [
   { label: '키워드', value: 'valueword' },
 ]
 
+const bannerImages = [
+  { src: '/images/home/banner1.png', alt: 'banner1' },
+  { src: '/images/home/banner2.png', alt: 'banner2' },
+]
+
 
 export default function Home() {
 
   const [selectedMenu, setSelectedMenu] = useState('recommendation')
   const [selectedFilter, setSelectedFilter] = useState('men')
+
+  const renderBanner = () => {
+
+    return (
+      <Carousel
+        showThumbs={false}
+        showStatus={false}
+        infiniteLoop={true}
+        autoPlay={true}
+        interval={5000}
+        showArrows={false}
+      >
+        {bannerImages.map((bannerImage) => (
+          <div key={bannerImage.src}>
+            <img src={bannerImage.src} alt={bannerImage.alt} />
+          </div>
+        ))}
+      </Carousel>
+    )
+  }
 
 
   return (
@@ -81,7 +109,30 @@ export default function Home() {
         </div>
 
 
-        <div className='flex mt-4 p-4 rounded-lg justify-between items-center' style={{ backgroundColor: 'var(--main-color)' }}>
+
+        <div className='flex mt-4 rounded-lg justify-between items-center'>
+          <Carousel
+            showStatus={false}
+            showThumbs={false}
+            showArrows={false}
+            showIndicators={false}
+            infiniteLoop={true}
+            swipeable={true}
+            emulateTouch={true}
+          >
+            {bannerImages.map((bannerImage) => (
+              <div key={bannerImage.src} className='p-3'>
+                <img src={bannerImage.src} alt={bannerImage.alt} />
+              </div>
+            ))}
+          </Carousel>
+
+
+        </div>
+
+
+
+        {/* <div className='flex mt-4 p-4 rounded-lg justify-between items-center' style={{ backgroundColor: 'var(--main-color)' }}>
           <div className='flex flex-col'>
             <p style={{ fontSize: 30 }}>
               <span className="text-bold">옷</span> 어떻게 <span className="text-bold">만들어요?</span>
@@ -99,7 +150,7 @@ export default function Home() {
             >
             </Image>
           </div>
-        </div>
+        </div> */}
 
         <div className='flex flex-row justify-between mt-4'>
 
