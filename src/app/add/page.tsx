@@ -42,6 +42,16 @@ export default function Add() {
     
   };
 
+  const generateTextToImage = async () => {
+    console.log('generate text to image');
+    router.push(`/add/result?type=${selectedMenu}&prompt=${prompt}`)
+  }
+
+  const generateSketchToImage = async () => {
+    console.log('generate sketch to image');
+    router.push(`/add/result?type=${selectedMenu}`)
+  }
+
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -275,7 +285,8 @@ export default function Add() {
 
         <div
           className="flex w-full items-center justify-center py-2.5 bg-main-background rounded-md cursor-pointer"
-          onClick={() => createClothesImage()}
+          // onClick={() => createClothesImage()}
+          onClick={selectedMenu == 'prompt' ? generateTextToImage : generateSketchToImage}
           style={{ marginTop: 44 }}
         >
           <div className="flex flex-row items-center relative">

@@ -17,11 +17,12 @@ const resultImages = [
 function ResultPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const prompt = ""
+  // const prompt = ""
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [title, setTitle] = useState<string>("");
   const [comment, setComment] = useState<string>("");
   const generateType = searchParams.get('type');
+  const prompt = searchParams.get('prompt');
   console.log(generateType)
 
   const [isModalVisible, setIsModalVisible] = useState(true)
@@ -39,6 +40,17 @@ function ResultPage() {
           const formData = new FormData();
           formData.append('generateType', generateType);
 
+          console.log(prompt)
+
+          if (generateType == 'prompt' && prompt) {
+            formData.append('prompt', prompt);
+          } else if (generateType == 'sketch') {
+            // const imagePath = path.resolve('./public/images/add/sketchSample.png');
+            // formData.append('image', fs.createReadStream(imagePath), 'sketchSample.png');
+          }
+
+          console.log(formData)
+
           const response = await fetch('/api/generateImage', {
             method: 'POST',
             body: formData
@@ -49,6 +61,8 @@ function ResultPage() {
           }
   
           const data = await response.json();
+
+          console.log(data)
   
           if (generateType == 'prompt') {
             setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
