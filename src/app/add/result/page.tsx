@@ -41,12 +41,21 @@ function ResultPage() {
           formData.append('generateType', generateType);
 
           console.log(prompt)
-
-          if (generateType == 'prompt' && prompt) {
+          
+          if (prompt) {
             formData.append('prompt', prompt);
-          } else if (generateType == 'sketch') {
-            // const imagePath = path.resolve('./public/images/add/sketchSample.png');
-            // formData.append('image', fs.createReadStream(imagePath), 'sketchSample.png');
+          }
+
+          if (generateType == 'sketch') {
+            const storedImage = localStorage.getItem('sketchImage');
+            if (!storedImage) {
+              console.error('No image found in localStorage');
+              return;
+            }
+            const base64Response = await fetch(storedImage);
+            const blob = await base64Response.blob();
+            const file = new File([blob], 'sketchSample.png', { type: 'image/png' });
+            formData.append('image', file);
           }
 
           console.log(formData)

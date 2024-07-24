@@ -36,11 +36,11 @@ export default function Add() {
   const [sketchImage, setSketchImage] = useState<string | null>(null);
 
 
-  const createClothesImage = async () => {
-    console.log('create clothes image');
-    router.push(`/add/result?type=${selectedMenu}`)
+  // const createClothesImage = async () => {
+  //   console.log('create clothes image');
+  //   router.push(`/add/result?type=${selectedMenu}`)
     
-  };
+  // };
 
   const generateTextToImage = async () => {
     console.log('generate text to image');
@@ -49,7 +49,7 @@ export default function Add() {
 
   const generateSketchToImage = async () => {
     console.log('generate sketch to image');
-    router.push(`/add/result?type=${selectedMenu}`)
+    router.push(`/add/result?type=${selectedMenu}&prompt=${prompt}`)
   }
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,6 +58,7 @@ export default function Add() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setSketchImage(reader.result as string);
+        localStorage.setItem('sketchImage', reader.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -71,6 +72,7 @@ export default function Add() {
       reader.onload = (e: ProgressEvent<FileReader>) => {
         if (e.target) {
           setSketchImage(e.target.result as string);
+          localStorage.setItem('sketchImage', e.target.result as string);
         }
       };
       reader.readAsDataURL(file);

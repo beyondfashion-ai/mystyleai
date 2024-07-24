@@ -22,9 +22,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const formData = await req.formData();
 
   const generateType = formData.get('generateType');
+  const prompt = formData.get('prompt');
+
   console.log(generateType)
   if (generateType === 'prompt') {
-    const prompt = formData.get('prompt');
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_HOST}/v1/generation/${engineId}/text-to-image`,
@@ -60,27 +61,41 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   } else if (generateType === 'sketch') {
 
-    const imagePath = path.resolve('./public/images/add/sketchSample.png');
+    const image = formData.get('image') as Blob;
+    const buffer = Buffer.from(await image.arrayBuffer());
+    const fileName = 'sketchSample.png';
 
-    // 파일 존재 여부 확인
-    if (!fs.existsSync(imagePath)) {
-      return NextResponse.json({ error: 'File not found' }, { status: 404 });
-    } else {
-      console.log('File exists');
-    }
+    const requestFormData = new FormData();
+    requestFormData.append('image', buffer, fileName);
+    // formData.append('prompt', 'a medieval castle on a hill');
+    requestFormData.append('prompt', prompt + " " + sketch2IBasePositivePrompt);
+    requestFormData.append('negative_prompt', sketch2IBaseNegativePrompt);
+    requestFormData.append('control_strength', controlStrength);
+    requestFormData.append('output_format', outputFormat);
 
-    const formData = new FormData();
-    formData.append('image', fs.createReadStream(imagePath), 'sketchSample.png');
-    formData.append('prompt', 'a medieval castle on a hill');
-    formData.append('control_strength', controlStrength);
-    formData.append('output_format', outputFormat);
+    // const imagePath = path.resolve('./public/images/add/sketchSample.png');
+
+    // // 파일 존재 여부 확인
+    // if (!fs.existsSync(imagePath)) {
+    //   return NextResponse.json({ error: 'File not found' }, { status: 404 });
+    // } else {
+    //   console.log('File exists');
+    // }
+
+    // const formData = new FormData();
+    // formData.append('image', fs.createReadStream(imagePath), 'sketchSample.png');
+    // formData.append('prompt', 'a medieval castle on a hill');
+    // formData.append('control_strength', controlStrength);
+    // formData.append('output_format', outputFormat);
 
     try {
-      const response = await axios.post('https://api.stability.ai/v2beta/stable-image/control/sketch', formData, {
+      const response = await axios.post(
+        'https://api.stability.ai/v2beta/stable-image/control/sketch',
+        requestFormData, {
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
           Accept: 'image/*',
-          ...formData.getHeaders(),
+          ...requestFormData.getHeaders(),
         },
         responseType: 'arraybuffer',
       });
