@@ -2,7 +2,7 @@
 
 import Header from "@/components/common/Header";
 import Image from "next/image";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const recommendedStyles = [
@@ -51,6 +51,24 @@ export default function Add() {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleDrop = useCallback((e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        if (e.target) {
+          setSketchImage(e.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }, []);
+
+  const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
   };
 
   return (
@@ -174,6 +192,8 @@ export default function Add() {
                 backgroundPosition: 'center',
                 cursor: 'pointer',
               }}
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
             >
               <input
                 type="file"

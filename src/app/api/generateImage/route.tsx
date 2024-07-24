@@ -57,7 +57,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     formData.append('image', fs.createReadStream(imagePath), 'sketchSample.png');
     formData.append('prompt', 'a medieval castle on a hill');
     formData.append('control_strength', '0.6');
-    formData.append('output_format', 'webp');
+    formData.append('output_format', 'jpeg');
 
     try {
       const response = await axios.post('https://api.stability.ai/v2beta/stable-image/control/sketch', formData, {
