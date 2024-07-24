@@ -58,6 +58,8 @@ function ResultPage() {
             formData.append('image', file);
           }
 
+          
+
           console.log(formData)
 
           const response = await fetch('/api/generateImage', {
