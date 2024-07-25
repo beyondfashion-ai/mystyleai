@@ -11,7 +11,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between h-screen">
+    <div className="flex relative flex-col items-center justify-between h-screen">
       <div className="flex-grow flex flex-col justify-center items-center">
         <Image
           src="/images/mainLogo.png"
@@ -22,6 +22,18 @@ export default function Home() {
       </div>
 
       <div
+        className="absolute w-full bottom-1 px-5"
+      >
+        <button
+          onClick={navigateToHome}
+          className="mb-8 text-bold w-full py-3"
+          style={{ backgroundColor: 'var(--main-color)', borderRadius: 24 }}
+        >
+          시작하기
+        </button>
+      </div>
+
+      {/* <div
         className="w-full px-5"
         
       >
@@ -32,7 +44,7 @@ export default function Home() {
         >
           시작하기
         </button>
-      </div>
+      </div> */}
 
     </div>
   );
