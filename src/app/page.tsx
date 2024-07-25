@@ -22,7 +22,7 @@ export default function Home() {
       {/* </div> */}
 
       <div
-        className="absolute w-full bottom-1 px-5 bg-black"
+        className="absolute w-full bottom-1 px-5"
       >
         <button
           onClick={navigateToHome}
