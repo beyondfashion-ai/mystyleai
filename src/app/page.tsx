@@ -11,18 +11,18 @@ export default function Home() {
   };
 
   return (
-    <div className="flex relative flex-col items-center justify-between h-screen">
-      <div className="flex-grow flex flex-col justify-center items-center">
+    <div className="flex relative flex-col items-center justify-center h-screen">
+      {/* <div className="flex-grow flex flex-col justify-center items-center"> */}
         <Image
           src="/images/mainLogo.png"
           alt="mainLogo"
           width={144}
           height={39}
         />
-      </div>
+      {/* </div> */}
 
       <div
-        className="absolute w-full bottom-1 px-5"
+        className="absolute w-full bottom-1 px-5 bg-black"
       >
         <button
           onClick={navigateToHome}
