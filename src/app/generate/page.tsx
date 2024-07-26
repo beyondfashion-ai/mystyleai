@@ -7,11 +7,9 @@ import { useRouter } from "next/navigation";
 
 const recommendedStyles = [
   { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' },
-  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' },
-  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' },
-  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' },
-  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' },
-  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' }
+  { title: 'K-POP Style', subTitle: 'BTS의 디자이너', image: '/images/generate/styles/styleBTS.png' },
+  { title: 'Chanel Style', subTitle: 'AI 샤넬 디자이너', image: '/images/generate/styles/styleChanel.png' },
+  
 ]
 
 const basicStyles = [
@@ -171,13 +169,14 @@ export default function Generate() {
             </div>
 
             <div className='mt-2.5 w-full grid grid-cols-4 gap-1'>
-              <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full rounded-md' />
-              <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full rounded-md' />
-              <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full rounded-md' />
-              <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full rounded-md' />
-              <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full rounded-md' />
-              <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full rounded-md' />
-              <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full rounded-md' />
+              <img src='/images/generate/basicStyles/basicStyle1.png' alt='1' className='w-full h-full rounded-md' />
+              <img src='/images/generate/basicStyles/basicStyle2.png' alt='1' className='w-full h-full rounded-md' />
+              <img src='/images/generate/basicStyles/basicStyle3.png' alt='1' className='w-full h-full rounded-md' />
+              <img src='/images/generate/basicStyles/basicStyle4.png' alt='1' className='w-full h-full rounded-md' />
+              <img src='/images/generate/basicStyles/basicStyle5.png' alt='1' className='w-full h-full rounded-md' />
+              <img src='/images/generate/basicStyles/basicStyle6.png' alt='1' className='w-full h-full rounded-md' />
+              <img src='/images/generate/basicStyles/basicStyle7.png' alt='1' className='w-full h-full rounded-md' />
+              <img src='/images/generate/basicStyles/basicStyle8.png' alt='1' className='w-full h-full rounded-md' />
             </div>
 
             <div className="text-bold mt-2" style={{ color: '#B0B0B0', fontSize: 8 }}>

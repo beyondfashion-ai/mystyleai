@@ -3,6 +3,8 @@
 import Header from "@/components/common/Header";
 import Image from "next/image";
 import { useState } from "react";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 
 const clothesTypes = [
   { label: 'ALL', value: 'all', icon: '/images/home/allIcon.png' },
@@ -20,19 +22,22 @@ const filterTypes = [
 ]
 
 const clothesStyles = [
-  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
+  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/shopping/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
+  { name: '자라 스타일 반팔 셔츠', price: '19000', image: '/images/shopping/samples/sample2.png', numOfLikes: 50, numOfComments: '52' },
+  { name: '아미 스타일 후드티', price: '19000', image: '/images/shopping/samples/sample3.png', numOfLikes: 50, numOfComments: '52' },
+  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/shopping/samples/sample4.png', numOfLikes: 50, numOfComments: '52' },
+  { name: '자라 스타일 반팔 셔츠', price: '19000', image: '/images/shopping/samples/sample5.png', numOfLikes: 50, numOfComments: '52' },
+  { name: '아미 스타일 후드티', price: '19000', image: '/images/shopping/samples/sample6.png', numOfLikes: 50, numOfComments: '52' },
+  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/shopping/samples/sample7.png', numOfLikes: 50, numOfComments: '52' },
+  { name: '자라 스타일 반팔 셔츠', price: '19000', image: '/images/shopping/samples/sample8.png', numOfLikes: 50, numOfComments: '52' },
+  { name: '아미 스타일 후드티', price: '19000', image: '/images/shopping/samples/sample9.png', numOfLikes: 50, numOfComments: '52' },
+  
 ]
 
+const bannerImages = [
+  { src: '/images/shopping/banner.png', alt: 'banner1' },
+  // { src: '/images/home/banner2.png', alt: 'banner2' },
+]
 
 export default function Shopping() {
 
@@ -46,6 +51,29 @@ export default function Shopping() {
       <div className="px-3">
         <Header title="쇼핑하기" />
       </div>
+
+      <div className='flex mt-4 rounded-lg justify-between items-center'>
+          <Carousel
+            showStatus={false}
+            showThumbs={false}
+            showArrows={false}
+            showIndicators={false}
+            infiniteLoop={true}
+            swipeable={true}
+            emulateTouch={true}
+            autoPlay={true}
+            interval={2000}
+
+          >
+            {bannerImages.map((bannerImage) => (
+              <div key={bannerImage.src} className='p-3'>
+                <img src={bannerImage.src} alt={bannerImage.alt} />
+              </div>
+            ))}
+          </Carousel>
+
+
+        </div>
 
       <div className='flex flex-row justify-between mt-4 px-3'>
 
@@ -100,9 +128,10 @@ export default function Shopping() {
           <div className="flex relative rounded-b-lg">
             <div className="relative w-full" style={{ paddingTop: '125%' }}>
               <img
-                src='/images/home/samples/sample1.png'
+                src={clothesStyle.image}
                 alt='1'
-                className='absolute top-0 left-0 w-full h-full object-cover rounded-b-lg'
+                className='absolute top-0 left-0 w-full h-full rounded-b-lg'
+
               />
               {/* <img src='/images/home/samples/sample1.png' alt='1' className='w-full rounded-b-lg' style={{ height: clothesStyleHeight }} /> */}
               <div
