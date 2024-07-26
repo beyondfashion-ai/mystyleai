@@ -9,16 +9,14 @@ const myPageMenus = [
   { label: '북마크', value: 'bookmark' },
 ]
 
+
 const clothesStyles = [
-  { name: '샤넬 스타일 반팔티', clothesType: '상의', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', clothesType: '상의', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', clothesType: '상의', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', clothesType: '상의', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', clothesType: '상의', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', clothesType: '상의', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', clothesType: '상의', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', clothesType: '상의', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
-  { name: '샤넬 스타일 반팔티', clothesType: '상의', image: '/images/home/samples/sample1.png', numOfLikes: 50, numOfComments: '52' },
+  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/myPage/samples/sample1.png', numOfLikes: 50, numOfComments: '52', clothesType: '상의' },
+  { name: '자라 스타일 반팔 셔츠', price: '19000', image: '/images/myPage/samples/sample2.png', numOfLikes: 50, numOfComments: '52', clothesType: '상의'  },
+  { name: '아미 스타일 후드티', price: '19000', image: '/images/myPage/samples/sample3.png', numOfLikes: 50, numOfComments: '52', clothesType: '상의'  },
+  { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/myPage/samples/sample4.png', numOfLikes: 50, numOfComments: '52', clothesType: '상의'  },
+  { name: '자라 스타일 반팔 셔츠', price: '19000', image: '/images/myPage/samples/sample5.png', numOfLikes: 50, numOfComments: '52', clothesType: '상의'  },
+  { name: '아미 스타일 후드티', price: '19000', image: '/images/myPage/samples/sample6.png', numOfLikes: 50, numOfComments: '52', clothesType: '상의'  },
 ]
 
 export default function MyPage() {
@@ -143,12 +141,17 @@ export default function MyPage() {
         {clothesStyles.map((clothesStyle) => (
           <div className="flex relative rounded-b-lg">
             <div className="relative w-full" style={{ paddingTop: '125%' }}>
-              <img
-                src='/images/home/samples/sample1.png'
+            <img
+                src={clothesStyle.image}
                 alt='1'
-                className='absolute top-0 left-0 w-full h-full object-cover rounded-b-lg'
+                className='absolute top-0 left-0 w-full h-full rounded-b-lg'
+
               />
-              <div className="absolute top-4 left-4">
+              <div
+                className="absolute"
+                style={{ top: 4, left: 4 }}
+
+              >
                 <Image
                   src='/images/common/heartIcon.svg'
                   alt='heart icon'

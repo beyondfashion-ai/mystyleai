@@ -31,7 +31,6 @@ const clothesStyles = [
   { name: '샤넬 스타일 반팔티', price: '19000', image: '/images/shopping/samples/sample7.png', numOfLikes: 50, numOfComments: '52' },
   { name: '자라 스타일 반팔 셔츠', price: '19000', image: '/images/shopping/samples/sample8.png', numOfLikes: 50, numOfComments: '52' },
   { name: '아미 스타일 후드티', price: '19000', image: '/images/shopping/samples/sample9.png', numOfLikes: 50, numOfComments: '52' },
-  
 ]
 
 const bannerImages = [
