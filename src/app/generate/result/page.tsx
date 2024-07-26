@@ -106,6 +106,7 @@ function ResultPage() {
           style={{
             paddingTop: `${(340 / 363) * 100}%`,
             // border: '2px solid var(--main-color)',
+            backgroundColor: '#F5EFE1'
           }}
         >
           <div
@@ -120,13 +121,7 @@ function ResultPage() {
                 objectFit="contain"
                 className="rounded-md"
               />
-            ) : (<Image
-              src='/images/generate/result/sampleImage.png'
-              alt='heart icon'
-              layout="fill"  // 이미지를 부모 요소의 크기에 맞게 확장
-              objectFit="cover"  // 이미지를 부모 요소에 맞게 잘라서 보여줌
-              className="rounded-md"  // 원하는 스타일 클래스 추가
-            />
+            ) : (<div className="w-full h-full" />
             )}
 
           </div>
