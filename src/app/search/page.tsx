@@ -35,10 +35,18 @@ const searchRanking = [
 
 const categories = [
   { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample1.png' },
-  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample1.png' },
-  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample1.png' },
-  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample1.png' },
-  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample1.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample2.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample3.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample4.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/categorySamples/categorySample5.png' },
+]
+
+const situations = [
+  { label: '미니멀', value: 'minimal', image: '/images/search/situationSamples/situationSample1.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/situationSamples/situationSample2.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/situationSamples/situationSample3.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/situationSamples/situationSample4.png' },
+  { label: '미니멀', value: 'minimal', image: '/images/search/situationSamples/situationSample5.png' },
 ]
 
 export default function Search() {
@@ -209,19 +217,19 @@ export default function Search() {
           </div>
 
           <div className="w-full flex flex-row justify-between mt-4">
-            {categories.map((category) => (
+            {situations.map((situation) => (
               <div
-                key={category.value}
+                key={situation.value}
                 className="flex flex-col items-center justify-center"
               >
                 <Image
-                  src={category.image}
-                  alt={category.label}
+                  src={situation.image}
+                  alt={situation.label}
                   width={56}
                   height={56}
                 />
 
-                <p className="mt-2.5 text-bold" style={{ color: '#787486', fontSize: 8 }}>{category.label}</p>
+                <p className="mt-2.5 text-bold" style={{ color: '#787486', fontSize: 8 }}>{situation.label}</p>
               </div>
             ))}  
           </div>

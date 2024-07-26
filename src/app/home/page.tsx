@@ -48,8 +48,8 @@ export default function Home() {
         showThumbs={false}
         showStatus={false}
         infiniteLoop={true}
-        autoPlay={true}
-        interval={5000}
+        // autoPlay={true}
+        // interval={5000}
         showArrows={false}
       >
         {bannerImages.map((bannerImage) => (
@@ -119,6 +119,9 @@ export default function Home() {
             infiniteLoop={true}
             swipeable={true}
             emulateTouch={true}
+            autoPlay={true}
+            interval={2000}
+
           >
             {bannerImages.map((bannerImage) => (
               <div key={bannerImage.src} className='p-3'>
@@ -203,12 +206,17 @@ export default function Home() {
 
       <div className='mt-2.5 w-full grid grid-cols-3 gap-0.5'>
         <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full' />
-        <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full' />
-        <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full' />
-        <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full' />
-        <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full' />
-        <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full' />
-        <img src='/images/home/samples/sample1.png' alt='1' className='w-full h-full' />
+        <img src='/images/home/samples/sample2.png' alt='1' className='w-full h-full' />
+        <img src='/images/home/samples/sample3.png' alt='1' className='w-full h-full' />
+        <img src='/images/home/samples/sample4.png' alt='1' className='w-full h-full' />
+        <img src='/images/home/samples/sample5.png' alt='1' className='w-full h-full' />
+        <img src='/images/home/samples/sample6.png' alt='1' className='w-full h-full' />
+        <img src='/images/home/samples/sample7.png' alt='1' className='w-full h-full' />
+        <img src='/images/home/samples/sample8.png' alt='1' className='w-full h-full' />
+        <img src='/images/home/samples/sample9.png' alt='1' className='w-full h-full' />
+        <img src='/images/home/samples/sample10.png' alt='1' className='w-full h-full' />
+        <img src='/images/home/samples/sample11.png' alt='1' className='w-full h-full' />
+        <img src='/images/home/samples/sample12.png' alt='1' className='w-full h-full' />
       </div>
 
     </div>
