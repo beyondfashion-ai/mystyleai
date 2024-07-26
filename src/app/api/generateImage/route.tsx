@@ -73,7 +73,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     requestFormData.append('control_strength', controlStrength);
     requestFormData.append('output_format', outputFormat);
 
-    // const imagePath = path.resolve('./public/images/add/sketchSample.png');
+    // const imagePath = path.resolve('./public/images/generate/sketchSample.png');
 
     // // 파일 존재 여부 확인
     // if (!fs.existsSync(imagePath)) {

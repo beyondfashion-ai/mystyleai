@@ -8,10 +8,10 @@ import fs from 'fs';
 
 
 const resultImages = [
-  { src: '/images/add/result/sampleImage.png' },
-  { src: '/images/add/result/sampleImage.png' },
-  { src: '/images/add/result/sampleImage.png' },
-  { src: '/images/add/result/sampleImage.png' }
+  { src: '/images/generate/result/sampleImage.png' },
+  { src: '/images/generate/result/sampleImage.png' },
+  { src: '/images/generate/result/sampleImage.png' },
+  { src: '/images/generate/result/sampleImage.png' }
 ]
 
 function ResultPage() {
@@ -33,7 +33,7 @@ function ResultPage() {
   useEffect(() => {
     const fetchData = async () => {
       if (!generateType) {
-        router.replace('/add');
+        router.replace('/generate');
       } else {
         try {
 
@@ -121,7 +121,7 @@ function ResultPage() {
                 className="rounded-md"
               />
             ) : (<Image
-              src='/images/add/result/sampleImage.png'
+              src='/images/generate/result/sampleImage.png'
               alt='heart icon'
               layout="fill"  // 이미지를 부모 요소의 크기에 맞게 확장
               objectFit="cover"  // 이미지를 부모 요소에 맞게 잘라서 보여줌
@@ -161,7 +161,7 @@ function ResultPage() {
               className="flex flex-col justify-center items-center"
             >
               <Image
-                src='/images/add/result/copyIcon.svg'
+                src='/images/generate/result/copyIcon.svg'
                 alt='heart icon'
                 width={12}
                 height={15}
@@ -174,7 +174,7 @@ function ResultPage() {
               style={{ marginLeft: 40, marginRight: 40 }}
             >
               <Image
-                src='/images/add/result/downloadIcon.svg'
+                src='/images/generate/result/downloadIcon.svg'
                 alt='heart icon'
                 width={14}
                 height={15}
@@ -186,7 +186,7 @@ function ResultPage() {
               className="flex flex-col justify-center items-center"
             >
               <Image
-                src='/images/add/result/heartIcon.svg'
+                src='/images/generate/result/heartIcon.svg'
                 alt='heart icon'
                 width={17}
                 height={15}
@@ -201,10 +201,10 @@ function ResultPage() {
         </div>
 
         <div className="mt-3 grid grid-cols-4 gap-1">
-          <img src='/images/add/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
-          <img src='/images/add/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
-          <img src='/images/add/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
-          <img src='/images/add/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
+          <img src='/images/generate/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
+          <img src='/images/generate/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
+          <img src='/images/generate/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
+          <img src='/images/generate/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
         </div>
 
         <div className="text-bold mt-3" style={{ fontSize: 10 }}>
@@ -268,7 +268,7 @@ function ResultPage() {
             >
               <div className="rounded-full" style={{ position: 'relative', width: 96, height: 96, boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
                 <Image
-                  src='/images/add/processModalCircle.svg'
+                  src='/images/generate/processModalCircle.svg'
                   alt='plus'
                   width={96}
                   height={96}

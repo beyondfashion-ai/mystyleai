@@ -10,7 +10,7 @@ const BottomTab = memo(() => {
   const links = [
     { href: '/home', label: 'home', icon: '/images/bottomTab/homeIcon.png', highlightedIcon: '/images/bottomTab/hilightedHomeIcon.png', width: 21, height: 21 },
     { href: '/search', label: 'search', icon: '/images/bottomTab/searchIcon.png', highlightedIcon: '/images/bottomTab/hilightedSearchIcon.png', width: 19, height: 19 },
-    { href: '/add', label: 'add', icon: '/images/bottomTab/addIcon.png', highlightedIcon: '/images/bottomTab/hilightedHomeIcon.png', width: 23, height: 23 },
+    { href: '/generate', label: 'generate', icon: '/images/bottomTab/addIcon.png', highlightedIcon: '/images/bottomTab/hilightedHomeIcon.png', width: 23, height: 23 },
     { href: '/shopping', label: 'shopping', icon: '/images/bottomTab/shoppingIcon.png', highlightedIcon: '/images/bottomTab/hilightedShoppingIcon.png', width: 24, height: 24 },
     { href: '/mypage', label: 'mypage', icon: '/images/bottomTab/myPageIcon.png', highlightedIcon: '/images/bottomTab/hilightedMyPageIcon.png', width: 22, height: 22 },
   ]
@@ -25,7 +25,7 @@ const BottomTab = memo(() => {
 
         {links.map(({ href, label, icon, highlightedIcon, width, height }) => (
           <Link key={href} href={href} >
-            {label == 'add' ? (
+            {label == 'generate' ? (
               <div 
                 className="flex flex-col items-center justify-center"
                 style={{ 

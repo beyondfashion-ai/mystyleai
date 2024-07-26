@@ -6,12 +6,12 @@ import { ChangeEvent, useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const recommendedStyles = [
-  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/add/styles/styleDior.png' },
-  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/add/styles/styleDior.png' },
-  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/add/styles/styleDior.png' },
-  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/add/styles/styleDior.png' },
-  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/add/styles/styleDior.png' },
-  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/add/styles/styleDior.png' }
+  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' },
+  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' },
+  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' },
+  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' },
+  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' },
+  { title: 'Dior Style', subTitle: 'AI 디올 디자이너', image: '/images/generate/styles/styleDior.png' }
 ]
 
 const basicStyles = [
@@ -26,7 +26,7 @@ const generationMenus = [
   { label: '스케치로 제작하기', value: 'sketch' },
 ]
 
-export default function Add() {
+export default function Generate() {
 
   const router = useRouter()
 
@@ -38,18 +38,18 @@ export default function Add() {
 
   // const createClothesImage = async () => {
   //   console.log('create clothes image');
-  //   router.push(`/add/result?type=${selectedMenu}`)
+  //   router.push(`/generate/result?type=${selectedMenu}`)
     
   // };
 
   const generateTextToImage = async () => {
     console.log('generate text to image');
-    router.push(`/add/result?type=${selectedMenu}&prompt=${prompt}`)
+    router.push(`/generate/result?type=${selectedMenu}&prompt=${prompt}`)
   }
 
   const generateSketchToImage = async () => {
     console.log('generate sketch to image');
-    router.push(`/add/result?type=${selectedMenu}&prompt=${prompt}`)
+    router.push(`/generate/result?type=${selectedMenu}&prompt=${prompt}`)
   }
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -119,7 +119,7 @@ export default function Add() {
                 >
                   <div style={{ fontSize: 11, color: '#262626' }}>{style.title}</div>
                   <Image
-                    src='/images/add/star.svg'
+                    src='/images/generate/star.svg'
                     alt='heart icon'
                     width={14}
                     height={11}
@@ -217,7 +217,7 @@ export default function Add() {
                 <>
                   <div className="p-4 bg-main-background rounded-full">
                     <Image
-                      src='/images/add/plus.svg'
+                      src='/images/generate/plus.svg'
                       alt='plus'
                       width={14}
                       height={14}
