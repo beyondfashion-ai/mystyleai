@@ -117,7 +117,7 @@ function ResultPage() {
                 src={imageSrc}
                 alt="Generated Image"
                 layout="fill"
-                objectFit="cover"
+                objectFit="contain"
                 className="rounded-md"
               />
             ) : (<Image
@@ -201,10 +201,10 @@ function ResultPage() {
         </div>
 
         <div className="mt-3 grid grid-cols-4 gap-1">
-          <img src='/images/generate/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
-          <img src='/images/generate/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
-          <img src='/images/generate/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
-          <img src='/images/generate/result/sampleImage.png' alt='1' className='w-full h-full rounded-md' />
+          <img src='/images/generate/result/samples/sample1.png' alt='1' className='w-full h-full rounded-md' />
+          <img src='/images/generate/result/samples/sample2.png' alt='1' className='w-full h-full rounded-md' />
+          <img src='/images/generate/result/samples/sample3.png' alt='1' className='w-full h-full rounded-md' />
+          <img src='/images/generate/result/samples/sample4.png' alt='1' className='w-full h-full rounded-md' />
         </div>
 
         <div className="text-bold mt-3" style={{ fontSize: 10 }}>
