@@ -27,19 +27,20 @@ export default function Home() {
 
   return (
     <div className="flex relative flex-col items-center justify-center" style={{ height: 'calc(var(--vh, 1vh) * 100)' }}>
-      <Image
-        src="/images/mainLogo.png"
-        alt="mainLogo"
-        width={144}
-        height={39}
-      />
+        <Image
+          src="/images/mainLogo.png"
+          alt="mainLogo"
+          width={144}
+          height={39}
+        />
+
 
       <div
-        className="absolute w-full bottom-1 px-5"
+        className="absolute w-full bottom-5 px-5"
       >
         <button
           onClick={navigateToHome}
-          className="mb-8 text-bold w-full py-3"
+          className="text-bold w-full py-3"
           style={{ backgroundColor: 'var(--main-color)', borderRadius: 24 }}
         >
           시작하기
