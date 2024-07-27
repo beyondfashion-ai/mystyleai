@@ -26,7 +26,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center" style={{ height: 'calc(var(--vh, 1vh) * 100)' }}>
+    <div className="flex flex-col items-center justify-center" style={{ height: 'calc(var(--vh, 1vh) * 100)', backgroundColor: 'red' }}>
         <Image
           src="/images/mainLogo.png"
           alt="mainLogo"
