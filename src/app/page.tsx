@@ -26,7 +26,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex relative flex-col items-center justify-center" style={{ height: 'calc(var(--vh, 1vh) * 100)', backgroundColor: 'red' }}>
+    <div className="flex relative flex-col items-center justify-center" style={{ height: 'calc(var(--vh, 1vh) * 100)' }}>
         <Image
           src="/images/mainLogo.png"
           alt="mainLogo"
@@ -36,7 +36,7 @@ export default function Home() {
 
 
       <div
-        className="absolute w-full bottom-0 px-5"
+        className="absolute w-full bottom-6 px-5"
       >
         <button
           onClick={navigateToHome}
