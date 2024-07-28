@@ -13,10 +13,10 @@ const recommendedStyles = [
 ]
 
 const basicStyles = [
-  { label: '성별', value: 'gender' },
+  { label: '모델', value: 'gender' },
   { label: '체형', value: 'body' },
   { label: '스타일', value: 'style' },
-  { label: '색상', value: 'color' },
+  { label: '장소', value: 'color' },
 ]
 
 const generationMenus = [
@@ -160,10 +160,10 @@ export default function Generate() {
               {basicStyles.map((basicStyle) => (
                 <div
                   className="flex flex-row relative items-center justify-between px-4 py-1 rounded-md mx-0.5 cursor-pointer"
-                  style={{ backgroundColor: '#F5EFE1', borderColor: selectedBasicStyle == basicStyle.value ? '#BFA054' : '#E3D4B5', borderWidth: 1 }}
+                  style={{ backgroundColor: selectedBasicStyle == basicStyle.value ? 'var(--main-color)' : '#F5EFE1', borderColor: selectedBasicStyle == basicStyle.value ? '#BFA054' : '#E3D4B5', borderWidth: 1 }}
                   onClick={() => setSelectedBasicStyle(basicStyle.value)}
                 >
-                  <div style={{ fontSize: 8, color: '#8A8888' }}>{basicStyle.label}</div>
+                  <div className="text-bold" style={{ fontSize: 8, color: selectedBasicStyle == basicStyle.value ? '#fff' : '#8A8888' }}>{basicStyle.label}</div>
                 </div>
               ))}
             </div>

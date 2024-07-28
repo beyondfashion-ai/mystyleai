@@ -41,32 +41,16 @@ export default function Home() {
   const [selectedMenu, setSelectedMenu] = useState('recommendation')
   const [selectedFilter, setSelectedFilter] = useState('men')
 
-  const renderBanner = () => {
-
-    return (
-      <Carousel
-        showThumbs={false}
-        showStatus={false}
-        infiniteLoop={true}
-        // autoPlay={true}
-        // interval={5000}
-        showArrows={false}
-      >
-        {bannerImages.map((bannerImage) => (
-          <div key={bannerImage.src}>
-            <img src={bannerImage.src} alt={bannerImage.alt} />
-          </div>
-        ))}
-      </Carousel>
-    )
-  }
-
-
   return (
     <div className=''>
       <div className='p-3'>
         <div className='flex flex-row justify-between'>
-          <p>MY_AI FASHION</p>
+          <Image
+            src="/images/mainLogo.png"
+            alt="mainLogo"
+            width={91}
+            height={17}
+          />
           <Image src='/images/svgs/alarmIcon.svg' alt='alarm icon' width={11} height={12} />
         </div>
 
