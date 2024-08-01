@@ -76,7 +76,8 @@ function ResultPage() {
           console.log(data)
   
           if (generateType == 'prompt') {
-            setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
+            // setImageSrc(`data:image/png;base64,${data.artifacts[0].base64}`);
+            setImageSrc(`data:image/png;base64,${data.base64}`);
           } else if (generateType == 'sketch') {
             setImageSrc(`data:image/png;base64,${data.base64}`);
           }
