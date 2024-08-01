@@ -34,6 +34,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     requestFormData.append('negative_prompt', T2IBaseNegativePrompt);
     requestFormData.append('aspect_ratio', aspectRatio);
     requestFormData.append('output_format', outputFormat);
+    requestFormData.append('seed', seed)
 
 
     try {
@@ -118,6 +119,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     requestFormData.append('negative_prompt', sketch2IBaseNegativePrompt);
     requestFormData.append('control_strength', controlStrength);
     requestFormData.append('output_format', outputFormat);
+    requestFormData.append('seed', seed)
 
 
     try {
