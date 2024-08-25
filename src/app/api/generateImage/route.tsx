@@ -5,6 +5,7 @@ import fs from 'fs';
 import axios from 'axios';
 import path from 'path';
 import FormData from 'form-data';
+import { Translate } from '@google-cloud/translate/build/src/v2';
 
 export const maxDuration = 30
 
@@ -18,23 +19,49 @@ const seed = 0
 const aspectRatio = "1:1"
 const outputFormat = "jpeg"
 
+const GOOGLE_CLOUD_API_KEY = 'AIzaSyB3i94tWwkyOPyOXyoXYNfA_a3iehzn0AA'
+const TRANSLATE_API_URL = "https://translation.googleapis.com/language/translate/v2";
+
+async function translateText(text: string, targetLang: string = 'en'): Promise<string | void> {
+  try {
+    console.log(text)
+    const params = {
+      q: text,
+      target: targetLang,
+      key: GOOGLE_CLOUD_API_KEY
+    }
+
+    const response = await axios.get(TRANSLATE_API_URL, { params });
+    console.log(response)
+    console.log(response.data.data)
+
+    if (response.status == 200) {
+      const translation = response.data.data.translations[0].translatedText;
+      return translation
+    }
+
+  } catch (error) {
+    console.log("error")
+  }
+}
+
 export async function POST(req: NextRequest, res: NextResponse) {
   const formData = await req.formData();
 
   const generateType = formData.get('generateType');
-  const prompt = formData.get('prompt');
+  const prompt = formData.get('prompt') as string;
 
-  console.log(generateType)
-
-
+  const translatePrompt = await translateText(prompt)
+  
 
   if (generateType === 'prompt') {
     const requestFormData = new FormData();
-    requestFormData.append('prompt', prompt + " " + T2IBasePositivePrompt);
+    requestFormData.append('prompt', translatePrompt + " " + T2IBasePositivePrompt);
     requestFormData.append('negative_prompt', T2IBaseNegativePrompt);
     requestFormData.append('aspect_ratio', aspectRatio);
     requestFormData.append('output_format', outputFormat);
     requestFormData.append('seed', seed)
+
 
 
     try {
@@ -60,43 +87,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
       }
     } catch (error) {
       console.log("error")
-      // return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
     
-    // const response = await fetch(
-    //   `${process.env.NEXT_PUBLIC_API_HOST}/v1/generation/${engineId}/text-to-image`,
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       Accept: 'application/json',
-    //       Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-    //     },
-    //     body: JSON.stringify({
-    //       text_prompts: [
-    //         {
-    //           text: prompt + ' ' + T2IBasePositivePrompt,
-    //           weight: 1
-    //         },
-    //         {
-    //           text: T2IBaseNegativePrompt,
-    //           weight: -1
-    //         }
-    //       ],
-    //       cfg_scale: 7,
-    //       height: 1024,
-    //       width: 1024,
-    //       steps: 10,
-    //       samples: 1,
-    //     }),
-    //   }
-    // )
-
-
-
-    // const responseJson = await response.json()
-    // return NextResponse.json(responseJson);
     const responseJson = {
       artifacts: [
         {
@@ -115,7 +108,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     const requestFormData = new FormData();
     requestFormData.append('image', buffer, fileName);
-    requestFormData.append('prompt', prompt + " " + sketch2IBasePositivePrompt);
+    requestFormData.append('prompt', translatePrompt + " " + sketch2IBasePositivePrompt);
     requestFormData.append('negative_prompt', sketch2IBaseNegativePrompt);
     requestFormData.append('control_strength', controlStrength);
     requestFormData.append('output_format', outputFormat);
