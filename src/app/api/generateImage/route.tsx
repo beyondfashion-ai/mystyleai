@@ -134,7 +134,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       } else {
         console.log("fail")
         const errorText = response.data.toString();
-        throw new Error(`${response.status}: ${errorText}`);
+        throw new Error(`${ response.status }: ${errorText}`);
       }
     } catch (error) {
       console.log("error")

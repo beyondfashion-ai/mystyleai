@@ -304,11 +304,7 @@ export default function Generate() {
               />
             </div>
           </div>
-
         </div>
-
-
-
       </div>
     </div>
   );

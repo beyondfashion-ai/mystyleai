@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface Style {
@@ -20,6 +21,8 @@ const styles: Style[] = [
 
 export default function Playground() {
 
+  const router = useRouter()
+
   const [selectedStyle, setSelectedStyle] = useState('')
   const [selectedStyleImagePath, setSelectedStyleImagePath] = useState('')
   const [prompt, setPrompt] = useState('')
@@ -29,12 +32,16 @@ export default function Playground() {
     setSelectedStyleImagePath(style.image)
   }
 
+  const handleGenerateCollection = () => {
+    router.push(`/playground/collection?prompt=${prompt}`)
+  }
+
 
 
   return (
     <div className="flex relative flex-col pt-3 pb-8 px-3" >
       <Image
-        src="/images/mainLogo.png"
+        src="/images/mainLogoAlpha.png"
         alt="mainLogo"
         width={144}
         height={39}
@@ -43,7 +50,9 @@ export default function Playground() {
       <div
         className="flex flex-col w-full items-center my-10"
       >
-
+        <div>
+          
+        </div>
         {
           selectedStyleImagePath == '' ? (
             <Image
@@ -79,7 +88,6 @@ export default function Playground() {
 
         <div
           className='mt-10 grid grid-cols-3 gap-2.5'
-
         >
           {styles.map((style, index) => (
             <div
@@ -130,13 +138,14 @@ export default function Playground() {
         />
 
         <div
-          className="mt-8 text-medium p-1"
+          className="mt-8 text-medium p-1 cursor-pointer"
           style={{ color: 'white', backgroundColor: 'var(--main-color)', borderRadius: 8 }}
+          onClick={handleGenerateCollection}
         >
           <div
-            className="text-medium py-2 cursor-pointer"
+            className="text-medium py-2"
             style={{ color: 'white', backgroundColor: 'var(--main-color)', borderRadius: 8, paddingLeft: 60, paddingRight: 60, border: '2px dashed white' }}
-            onClick={() => alert('컬렉션 제작')}
+            
           >
             컬렉션 제작
 
