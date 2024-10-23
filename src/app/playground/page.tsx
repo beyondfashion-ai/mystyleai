@@ -3,40 +3,60 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import db from "../../../firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 
 interface Style {
   label: string;
   image: string;
   gender: string;
+  season: string;
 }
 
 const styles: Style[] = [
-  { label: 'CH*NE*', image: '/images/playground/chanel.png', gender: 'WOMEN' },
-  { label: 'CEL*N*', image: '/images/playground/celine.png', gender: 'WOMEN' },
-  { label: 'MIUM**', image: '/images/playground/miumiu.png', gender: 'WOMEN' },
-  { label: 'LOU*S VU*TTON', image: '/images/playground/louisButton.png', gender: 'MEN' },
-  { label: 'BAL*NCI*GA', image: '/images/playground/balenciaga.png', gender: 'MEN' },
-  { label: 'F*NDI', image: '/images/playground/fendi.png', gender: 'MEN' }
+  { label: 'CH*NE*', image: '/images/playground/chanel.png', gender: 'WOMEN', season: 'FW' },
+  { label: 'CEL*N*', image: '/images/playground/celine.png', gender: 'WOMEN', season: 'FW' },
+  { label: 'MIUM**', image: '/images/playground/miumiu.png', gender: 'WOMEN', season: 'FW' },
+  { label: 'LOU*S VU*TTON', image: '/images/playground/louisButton.png', gender: 'MEN', season: 'FW' },
+  { label: 'BAL*NCI*GA', image: '/images/playground/balenciaga.png', gender: 'MEN', season: 'FW' },
+  { label: 'F*NDI', image: '/images/playground/fendi.png', gender: 'MEN', season: 'FW' }
 ]
 
 export default function Playground() {
 
   const router = useRouter()
 
-  const [selectedStyle, setSelectedStyle] = useState('')
+  const [selectedStyle, setSelectedStyle] = useState<Style>()
   const [selectedStyleImagePath, setSelectedStyleImagePath] = useState('')
   const [prompt, setPrompt] = useState('')
 
   const handleStyleClick = (style: Style) => {
-    setSelectedStyle(style.label)
+    setSelectedStyle(style)
     setSelectedStyleImagePath(style.image)
   }
 
-  const handleGenerateCollection = () => {
-    router.push(`/playground/collection?prompt=${prompt}`)
+  const handleGenerateCollection = async () => {
+    console.log("handlegenerationcollection")
+
+    // const date = new Date();
+    // const koreanTime = date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' });
+
+    // try {
+    //   const docRef = await addDoc(collection(db, 'generation_alpha'), {
+    //     prompt,
+    //     style: selectedStyle?.label,
+    //     date: koreanTime,
+    //   })
+
+    //   const documentId = docRef.id
+    //   console.log(documentId)
+
+    // } catch (error) {
+    //   console.log(error)
+    // }
+
+    
   }
-
-
 
   return (
     <div className="flex relative flex-col pt-3 pb-8 px-3" >
@@ -50,28 +70,54 @@ export default function Playground() {
       <div
         className="flex flex-col w-full items-center my-10"
       >
-        <div>
-          
+        <div
+          className="relative flex justify-center"
+        >
+
+        <div
+          className="absolute flex items-center justify-center text-center w-full text-bold px-2"
+          style={{
+            top: '70%',
+          }}
+        >
+
+          <div
+            className="w-full py-1"
+            style={{
+              fontSize: 10,
+              backgroundColor: 'rgba(249, 239, 225, 0.7)',
+              borderRadius: 8,
+              
+            }}
+          >
+            { selectedStyle === undefined ? '2024 FW의 디자이너가 되어보세요.' : `${selectedStyle.label} 2024 ${selectedStyle.season} ${selectedStyle.gender}` }
+            
+
+          </div>
         </div>
-        {
-          selectedStyleImagePath == '' ? (
-            <Image
-              src="/images/playground/playgroundSampleImage.png"
-              alt="playgroundSampleImage"
-              width={200}
-              height={200}
-              className="shadow-2xl"
-            />
-          ) : (
-            <Image
-              src={selectedStyleImagePath}
-              // src="/images/playground/celine.png"
-              alt="selectedStyle"
-              width={200}
-              height={200}
-              className="shadow-2xl"
-            />
-          )}
+
+
+          {
+            selectedStyleImagePath == '' ? (
+              <Image
+                src="/images/playground/playgroundSampleImage.png"
+                alt="playgroundSampleImage"
+                width={200}
+                height={200}
+                className="shadow-2xl"
+              />
+            ) : (
+              <Image
+                src={selectedStyleImagePath}
+                // src="/images/playground/celine.png"
+                alt="selectedStyle"
+                width={200}
+                height={200}
+                className="shadow-2xl"
+              />
+            )}
+        </div>
+
 
         <div
           className="mt-8 text-medium"
@@ -101,7 +147,7 @@ export default function Playground() {
               }}
               onClick={() => handleStyleClick(style)}
             >
-              {selectedStyle === style.label && (
+              {selectedStyle?.label === style.label && (
                 <div
                   className="absolute flex items-center justify-center w-full h-full text-center"
                   style={{
@@ -145,7 +191,7 @@ export default function Playground() {
           <div
             className="text-medium py-2"
             style={{ color: 'white', backgroundColor: 'var(--main-color)', borderRadius: 8, paddingLeft: 60, paddingRight: 60, border: '2px dashed white' }}
-            
+
           >
             컬렉션 제작
 
