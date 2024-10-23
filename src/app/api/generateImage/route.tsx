@@ -6,6 +6,7 @@ import axios from 'axios';
 import path from 'path';
 import FormData from 'form-data';
 import { Translate } from '@google-cloud/translate/build/src/v2';
+import { translateText } from '@/app/utils/utils';
 
 export const maxDuration = 30
 
@@ -19,31 +20,8 @@ const seed = 0
 const aspectRatio = "1:1"
 const outputFormat = "jpeg"
 
-const GOOGLE_CLOUD_API_KEY = 'AIzaSyB3i94tWwkyOPyOXyoXYNfA_a3iehzn0AA'
-const TRANSLATE_API_URL = "https://translation.googleapis.com/language/translate/v2";
 
-async function translateText(text: string, targetLang: string = 'en'): Promise<string | void> {
-  try {
-    console.log(text)
-    const params = {
-      q: text,
-      target: targetLang,
-      key: GOOGLE_CLOUD_API_KEY
-    }
 
-    const response = await axios.get(TRANSLATE_API_URL, { params });
-    console.log(response)
-    console.log(response.data.data)
-
-    if (response.status == 200) {
-      const translation = response.data.data.translations[0].translatedText;
-      return translation
-    }
-
-  } catch (error) {
-    console.log("error")
-  }
-}
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const formData = await req.formData();
