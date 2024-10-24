@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
 import db from "../../../firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 
@@ -11,15 +12,16 @@ interface Style {
   image: string;
   gender: string;
   season: string;
+  index: number;
 }
 
 const styles: Style[] = [
-  { label: 'CH*NE*', image: '/images/playground/chanel.png', gender: 'WOMEN', season: 'FW' },
-  { label: 'CEL*N*', image: '/images/playground/celine.png', gender: 'WOMEN', season: 'FW' },
-  { label: 'MIUM**', image: '/images/playground/miumiu.png', gender: 'WOMEN', season: 'FW' },
-  { label: 'LOU*S VU*TTON', image: '/images/playground/louisButton.png', gender: 'MEN', season: 'FW' },
-  { label: 'BAL*NCI*GA', image: '/images/playground/balenciaga.png', gender: 'MEN', season: 'FW' },
-  { label: 'F*NDI', image: '/images/playground/fendi.png', gender: 'MEN', season: 'FW' }
+  { label: 'CH*NE*', image: '/images/playground/chanel.png', gender: 'WOMEN', season: 'FW', index: 1 },
+  { label: 'CEL*N*', image: '/images/playground/celine.png', gender: 'WOMEN', season: 'FW', index: 2 },
+  { label: 'MIUM**', image: '/images/playground/miumiu.png', gender: 'WOMEN', season: 'FW', index: 3 },
+  { label: 'LOU*S VU*TTON', image: '/images/playground/louisButton.png', gender: 'MEN', season: 'FW', index: 4 },
+  { label: 'BAL*NCI*GA', image: '/images/playground/balenciaga.png', gender: 'MEN', season: 'FW', index: 5 },
+  { label: 'F*NDI', image: '/images/playground/fendi.png', gender: 'MEN', season: 'FW', index: 6 }
 ]
 
 export default function Playground() {
@@ -55,7 +57,18 @@ export default function Playground() {
     //   console.log(error)
     // }
 
-    
+    const response = await fetch('/api/alpha/generateImage', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prompt,
+        style: selectedStyle?.index
+      })
+    })
+
+
   }
 
   return (

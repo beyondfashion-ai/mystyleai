@@ -6,6 +6,14 @@ import axios from 'axios';
 import path from 'path';
 import FormData from 'form-data';
 import { Translate } from '@google-cloud/translate/build/src/v2';
+import { translateText } from '@/app/utils/utils';
+import { addDoc, collection, updateDoc } from 'firebase/firestore';
+// import db from '../../../../../firebase/firestore';
+import { db } from '../../../../../firebase/firestore';
+import { storage } from '../../../../../firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+
+import { requestFalAIFluxLora } from '@/app/utils/api';
 
 export const maxDuration = 30
 
@@ -22,3 +30,47 @@ const outputFormat = "jpeg"
 const GOOGLE_CLOUD_API_KEY = 'AIzaSyB3i94tWwkyOPyOXyoXYNfA_a3iehzn0AA'
 const TRANSLATE_API_URL = "https://translation.googleapis.com/language/translate/v2";
 
+export async function POST(req: NextRequest, res: NextResponse) {
+  const { prompt, style } = await req.json()
+  console.log(prompt, style)
+
+  const date = new Date();
+  const koreanTime = date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' });
+
+  try {
+    const docRef = await addDoc(collection(db, 'generation_alpha'), {
+      prompt,
+      style: style,
+      date: koreanTime,
+      status: 'processing'
+    })
+
+    const documentId = docRef.id
+
+    const response = await requestFalAIFluxLora(prompt)
+
+    const imageUrl = response.data.images[0].url
+    const imageResponse = await fetch(imageUrl);
+    const imageBlob = await imageResponse.blob(); // Blob 형태로 이미지 데이터를 가져옴
+
+    // Firebase Storage 경로 지정 (ex: 'images/documentId.png')
+    const storageRef = ref(storage, `alpha/${documentId}.png`);
+
+    // Firebase Storage에 이미지 데이터 업로드
+    await uploadBytes(storageRef, imageBlob);
+
+    // 업로드된 이미지의 다운로드 URL 가져오기
+    const downloadUrl = await getDownloadURL(storageRef);
+
+    // Firestore에 업로드된 이미지 URL 업데이트
+    await updateDoc(docRef, {
+      status: 'completed',
+      styleImageURL: downloadUrl
+    });
+  } catch (error) {
+    console.log(error)
+    
+  }
+
+  return NextResponse.json({ message: 'success' });
+}
