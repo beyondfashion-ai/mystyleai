@@ -1,7 +1,10 @@
 "use client"
 
+import { doc, getDoc } from 'firebase/firestore'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { db } from '../../../../../firebase/firestore'
 
 const SNSIcons = [
   { name: "카카오톡", src: "/images/playground/kakaoIcon.png" },
@@ -12,6 +15,52 @@ const SNSIcons = [
 export default function Collection() {
 
   const router = useRouter()
+  const pathName = usePathname()
+
+  const [generatedImageUrl, setGeneratedImageUrl] = useState<string>('')
+
+  console.log(pathName)
+  const generationId = pathName.split('/').pop()
+
+  console.log(generationId)
+  // const { id } = router.query as { id: string }
+
+  useEffect(() => {
+    if (!generationId) {
+      router.push('/playground'); // generationId가 없으면 다른 페이지로 이동
+      return;
+    }
+
+    const fetchGenerationData = async () => {
+      try {
+        const docRef = doc(db, 'generation_alpha', generationId); // Firestore에서 해당 문서 참조 가져오기
+        const docSnap = await getDoc(docRef);
+
+
+
+        if (docSnap.exists()) {
+
+          const data = docSnap.data()
+          console.log(data)
+          const imageUrl = data.generatedImageURL
+          // setGenerationData(docSnap.data()); // 문서 데이터를 state에 저장
+          setGeneratedImageUrl(imageUrl);
+        } else {
+          console.log('No such document!');
+          // setError('Document not found');
+        }
+      } catch (err) {
+        console.error('Error fetching document:', err);
+        // setError('Failed to fetch document');
+      } finally {
+        // setLoading(false); // 로딩 상태 종료
+      }
+    };
+
+    fetchGenerationData();
+
+  }, [])
+
   const handleGenerateModel = () => {
     router.push(`/playground/model`)
   }
@@ -27,14 +76,19 @@ export default function Collection() {
       <div
         className="flex flex-col w-full items-center my-10"
       >
+        {generatedImageUrl && (
+          <Image
+            // src="/images/playground/playgroundSampleImage.png"
+            src={generatedImageUrl}
+            // src="https://firebasestorage.googleapis.com/v0/b/my-style-5649d.appspot.com/o/alpha%2FGSwa7IYVkmdHwzsxmoqz.png?alt=media&token=8b895e1c-cc93-482d-ab40-defc2895caff"
+            alt="playgroundSampleImage"
+            width={200}
+            height={200}
+            className="shadow-2xl"
+          />
+        )}
 
-        <Image
-          src="/images/playground/playgroundSampleImage.png"
-          alt="playgroundSampleImage"
-          width={200}
-          height={200}
-          className="shadow-2xl"
-        />
+
         <div
           className="mt-8 text-bold"
         >
@@ -55,7 +109,7 @@ export default function Collection() {
                 width={40}
                 height={40}
               />
-              <div 
+              <div
                 className="mt-2 text-medium"
                 style={{ fontSize: 10 }}
               >
@@ -76,7 +130,7 @@ export default function Collection() {
         <div
           className="mt-8 text-medium"
         >
-          ※ 업로드 이미지는 기능 동작에만 사용되며 
+          ※ 업로드 이미지는 기능 동작에만 사용되며
         </div>
 
         <div

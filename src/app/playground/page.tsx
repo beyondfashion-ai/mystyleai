@@ -4,8 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import db from "../../../firebase/firestore";
-import { collection, addDoc } from "firebase/firestore";
+
 
 interface Style {
   label: string;
@@ -40,23 +39,6 @@ export default function Playground() {
   const handleGenerateCollection = async () => {
     console.log("handlegenerationcollection")
 
-    // const date = new Date();
-    // const koreanTime = date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' });
-
-    // try {
-    //   const docRef = await addDoc(collection(db, 'generation_alpha'), {
-    //     prompt,
-    //     style: selectedStyle?.label,
-    //     date: koreanTime,
-    //   })
-
-    //   const documentId = docRef.id
-    //   console.log(documentId)
-
-    // } catch (error) {
-    //   console.log(error)
-    // }
-
     const response = await fetch('/api/alpha/generateImage', {
       method: 'POST',
       headers: {
@@ -67,6 +49,17 @@ export default function Playground() {
         style: selectedStyle?.index
       })
     })
+
+    const data = await response.json()
+    console.log(data)
+
+    const { status, generationId } = data
+
+    if (status === 'success') {
+      router.push(`/playground/collection/${generationId}`)
+    }
+
+    // router.push('/playground/collection/123')
 
 
   }

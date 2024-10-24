@@ -65,12 +65,16 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // Firestore에 업로드된 이미지 URL 업데이트
     await updateDoc(docRef, {
       status: 'completed',
-      styleImageURL: downloadUrl
+      generatedImageURL: downloadUrl
     });
+
+    return NextResponse.json({ status: 'success', generationId: documentId });
+
+
   } catch (error) {
     console.log(error)
     
   }
 
-  return NextResponse.json({ message: 'success' });
+  return NextResponse.json({ status: 'fail' });
 }
