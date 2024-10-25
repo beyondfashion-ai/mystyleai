@@ -21,8 +21,6 @@ const aspectRatio = "1:1"
 const outputFormat = "jpeg"
 
 
-
-
 export async function POST(req: NextRequest, res: NextResponse) {
   const formData = await req.formData();
 
@@ -39,7 +37,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     requestFormData.append('aspect_ratio', aspectRatio);
     requestFormData.append('output_format', outputFormat);
     requestFormData.append('seed', seed)
-
 
 
     try {

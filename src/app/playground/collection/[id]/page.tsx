@@ -3,7 +3,7 @@
 import { doc, getDoc } from 'firebase/firestore'
 import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { db } from '../../../../../firebase/firestore'
 
 const SNSIcons = [
@@ -16,6 +16,8 @@ export default function Collection() {
 
   const router = useRouter()
   const pathName = usePathname()
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [generatedImageUrl, setGeneratedImageUrl] = useState<string>('')
 
@@ -64,6 +66,29 @@ export default function Collection() {
   const handleGenerateModel = () => {
     router.push(`/playground/model`)
   }
+
+  const handleUploadUserFace = () => {
+    fileInputRef.current?.click()
+  }
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+
+
+    if (file) {
+      const formData = new FormData()
+      formData.append('userImage', file)
+      formData.append('generationId', generationId as string)
+
+      const response = await fetch('/api/alpha/swapUserFace', {
+        method: 'POST',
+        body: formData
+      })
+
+      console.log(response)
+    }
+  }
+
 
   return (
     <div className="flex relative flex-col pt-3 pb-8 px-3" >
@@ -142,15 +167,24 @@ export default function Collection() {
         <div
           className="mt-8 text-medium p-1 cursor-pointer"
           style={{ color: 'white', backgroundColor: 'var(--main-color)', borderRadius: 8 }}
+          onClick={handleUploadUserFace}
         >
           <div
             className="text-medium py-2 text-center"
             style={{ color: 'white', backgroundColor: 'var(--main-color)', borderRadius: 8, paddingLeft: 60, paddingRight: 60, border: '2px dashed white' }}
-            onClick={handleGenerateModel}
+            // onClick={handleGenerateModel}
           >
             모델데뷔
             <div style={{ fontSize: 8 }}>얼굴 이미지 업로드</div>
           </div>
+
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+          />
         </div>
 
       </div>

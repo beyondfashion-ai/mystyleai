@@ -18,7 +18,7 @@ import { requestFalAIFluxLora } from '@/app/utils/api';
 export const maxDuration = 30
 
 const engineId = "stable-diffusion-xl-1024-v1-0"
-const T2IBasePositivePrompt = "(best quality:1.2), (masterpiece:1.2), (8K:1.2), (intricate details:1.2), (photorealistic:1.2), (raw, highres:1.2),(realistic:1.3), (photo:1.3),a photo of a fashion model, full body, whole body, put on shoes,  delicate face, delicate figure"
+const T2IBasePositivePrompt = "(best quality:1.2), (masterpiece:1.2), (8K:1.2), (intricate details:1.2), (photorealistic:1.2), (raw, highres:1.2),(realistic:1.3), (photo:1.3),a photo of a fashion model, full body, whole body, put on shoes,  delicate face, delicate figure, young white people"
 const T2IBaseNegativePrompt = "extreme facial close up, facial close up,medium close up,bust shot,  waist shot,medium shot,upper body,cowboy shot,thigh above body,(two girls, three girls) lowers, paintings, sketches, lowres, paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans, skin blemishes, bad feet, ((wrong feet)), (wrong shoes), bad hands, distorted, blurry, missing fingers,   multiple feet, bad knees, extra fingers, bad body,bad proportion,bad proportion body, glans, nsfw, saggy breast, acnes, age spot, dark spots, fat, fused, giantess, glans, mole, obesity, skin blemishes, skin spots, animal ears, elf-ears, earrings, childish, morbid, blurry, paintings,   sketch, text, logo, (monochrome:1.1), easy negative, (multiple picture:1.3), worst face, error, (normal quality:1.5),   (worst quality:1.5), (low quality:1.5), (multiple photo:1.5), horror, bad anatomy, multiple arms, deformed fingers, extra legs, third feet, multiple feet, bad knees, extra fingersmutated hands, ugly, (fat ass), feet, (multiple limbs:1.2), toes"
 const sketch2IBasePositivePrompt = "(best quality:1.2), (masterpiece:1.2), (8K:1.2), (intricate details:1.2), (photorealistic:1.2), (raw, highres:1.2),(realistic:1.3), (photo:1.3),a photo of a fashion"
 const sketch2IBaseNegativePrompt = "lowers, paintings, sketches, lowres, paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), ((wrong feet)), (wrong shoes), bad hands, distorted, blurry, missing fingers,   multiple feet, bad knees, extra fingers, bad body,bad proportion,bad proportion body, glans, nsfw, saggy breast, acnes, age spot, dark spots, fat, fused, giantess, glans, mole, obesity, skin blemishes, skin spots, animal ears, elf-ears, earrings, childish, morbid, blurry, paintings,   sketch, text, logo, (monochrome:1.1), easy negative, (multiple picture:1.3), worst face, error, (normal quality:1.5),   (worst quality:1.5), (low quality:1.5), (multiple photo:1.5), horror, bad anatomy, multiple arms, deformed fingers, extra legs, third feet, multiple feet, bad knees, extra fingersmutated hands, ugly, (fat ass), feet, (multiple limbs:1.2), toes"
@@ -30,9 +30,20 @@ const outputFormat = "jpeg"
 const GOOGLE_CLOUD_API_KEY = 'AIzaSyB3i94tWwkyOPyOXyoXYNfA_a3iehzn0AA'
 const TRANSLATE_API_URL = "https://translation.googleapis.com/language/translate/v2";
 
+const styleToLoraPath: { [key: number]: string | undefined } = {
+  1: process.env.NEXT_PUBLIC_CHANEL_2024_FW_WOMEN,
+  2: process.env.NEXT_PUBLIC_CELINE_2024_FW_WOMEN,
+  3: process.env.NEXT_PUBLIC_MIUMIU_2024_FW_WOMEN,
+  4: process.env.NEXT_PUBLIC_LOUISVUTTION_2024_FW_MEN,
+  5: process.env.NEXT_PUBLIC_BALENCIAGA_2024_FW_MEN,
+  6: process.env.NEXT_PUBLIC_FENDI_2024_FW_MEN,
+}
+
+
 export async function POST(req: NextRequest, res: NextResponse) {
   const { prompt, style } = await req.json()
-  console.log(prompt, style)
+
+  const translatePrompt = await translateText(prompt)
 
   const date = new Date();
   const koreanTime = date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' });
@@ -40,14 +51,19 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const docRef = await addDoc(collection(db, 'generation_alpha'), {
       prompt,
+      translatePrompt,
       style: style,
       date: koreanTime,
       status: 'processing'
     })
 
     const documentId = docRef.id
+    console.log(documentId)
+    const inputPrompt = translatePrompt + " " + T2IBasePositivePrompt
 
-    const response = await requestFalAIFluxLora(prompt)
+    const loraPath = styleToLoraPath[style] ? styleToLoraPath[style] : ''
+
+    const response = await requestFalAIFluxLora(inputPrompt, loraPath)
 
     const imageUrl = response.data.images[0].url
     const imageResponse = await fetch(imageUrl);
@@ -69,8 +85,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
 
     return NextResponse.json({ status: 'success', generationId: documentId });
-
-
   } catch (error) {
     console.log(error)
     

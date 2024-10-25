@@ -37,7 +37,6 @@ export default function Playground() {
   }
 
   const handleGenerateCollection = async () => {
-    console.log("handlegenerationcollection")
 
     const response = await fetch('/api/alpha/generateImage', {
       method: 'POST',
@@ -51,7 +50,6 @@ export default function Playground() {
     })
 
     const data = await response.json()
-    console.log(data)
 
     const { status, generationId } = data
 
