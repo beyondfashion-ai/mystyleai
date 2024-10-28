@@ -58,7 +58,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     })
 
     const documentId = docRef.id
-    console.log(documentId)
     const inputPrompt = translatePrompt + " " + T2IBasePositivePrompt
 
     const loraPath = styleToLoraPath[style] ? styleToLoraPath[style] : ''
@@ -83,6 +82,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       status: 'completed',
       generatedImageURL: downloadUrl
     });
+
+    console.log(downloadUrl)
 
     return NextResponse.json({ status: 'success', generationId: documentId });
   } catch (error) {

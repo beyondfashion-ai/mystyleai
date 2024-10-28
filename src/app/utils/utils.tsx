@@ -5,7 +5,6 @@ const translate_api_url = process.env.NEXT_PUBLIC_TRANSLATE_API_URL ? process.en
 
 export async function translateText(text: string, targetLang: string = 'en'): Promise<string | void> {
   try {
-    console.log(text)
     const params = {
       q: text,
       target: targetLang,
@@ -13,8 +12,6 @@ export async function translateText(text: string, targetLang: string = 'en'): Pr
     }
 
     const response = await axios.get(translate_api_url, { params });
-    console.log(response)
-    console.log(response.data.data)
 
     if (response.status == 200) {
       const translation = response.data.data.translations[0].translatedText;

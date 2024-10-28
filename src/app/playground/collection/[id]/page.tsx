@@ -46,6 +46,7 @@ export default function Collection() {
           console.log(data)
           const imageUrl = data.generatedImageURL
           // setGenerationData(docSnap.data()); // 문서 데이터를 state에 저장
+          console.log(imageUrl)
           setGeneratedImageUrl(imageUrl);
         } else {
           console.log('No such document!');
@@ -79,6 +80,7 @@ export default function Collection() {
       const formData = new FormData()
       formData.append('userImage', file)
       formData.append('generationId', generationId as string)
+      formData.append('generatedImageUrl', generatedImageUrl)
 
       const response = await fetch('/api/alpha/swapUserFace', {
         method: 'POST',
@@ -101,16 +103,33 @@ export default function Collection() {
       <div
         className="flex flex-col w-full items-center my-10"
       >
+
         {generatedImageUrl && (
-          <Image
-            // src="/images/playground/playgroundSampleImage.png"
-            src={generatedImageUrl}
-            // src="https://firebasestorage.googleapis.com/v0/b/my-style-5649d.appspot.com/o/alpha%2FGSwa7IYVkmdHwzsxmoqz.png?alt=media&token=8b895e1c-cc93-482d-ab40-defc2895caff"
-            alt="playgroundSampleImage"
-            width={200}
-            height={200}
-            className="shadow-2xl"
-          />
+          <div
+            className='relative'
+          >
+
+            <Image
+              // src="/images/playground/playgroundSampleImage.png"
+              src={generatedImageUrl}
+              // src="https://firebasestorage.googleapis.com/v0/b/my-style-5649d.appspot.com/o/alpha%2FGSwa7IYVkmdHwzsxmoqz.png?alt=media&token=8b895e1c-cc93-482d-ab40-defc2895caff"
+              alt="playgroundSampleImage"
+              width={330}
+              height={330}
+              className="shadow-2xl"
+            />
+
+            {/* <div
+              className="absolute flex text-center w-full text-bold px-2"
+              style={{
+                top: '10%',
+                left: '80%',
+              }}
+            >
+              1234
+            </div> */}
+          </div>
+
         )}
 
 
@@ -172,7 +191,7 @@ export default function Collection() {
           <div
             className="text-medium py-2 text-center"
             style={{ color: 'white', backgroundColor: 'var(--main-color)', borderRadius: 8, paddingLeft: 60, paddingRight: 60, border: '2px dashed white' }}
-            // onClick={handleGenerateModel}
+          // onClick={handleGenerateModel}
           >
             모델데뷔
             <div style={{ fontSize: 8 }}>얼굴 이미지 업로드</div>
