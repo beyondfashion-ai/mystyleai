@@ -51,7 +51,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const docRef = await addDoc(collection(db, 'generation_alpha'), {
       prompt,
-      translatePrompt,
+      translate_prompt: translatePrompt,
       style: style,
       date: koreanTime,
       status: 'processing'
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const imageBlob = await imageResponse.blob(); // Blob 형태로 이미지 데이터를 가져옴
 
     // Firebase Storage 경로 지정 (ex: 'images/documentId.png')
-    const storageRef = ref(storage, `alpha/${documentId}.png`);
+    const storageRef = ref(storage, `alpha/${documentId}/generation.png`);
 
     // Firebase Storage에 이미지 데이터 업로드
     await uploadBytes(storageRef, imageBlob);
@@ -79,11 +79,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     // Firestore에 업로드된 이미지 URL 업데이트
     await updateDoc(docRef, {
-      status: 'completed',
-      generatedImageURL: downloadUrl
+      status: 'generation_completed',
+      generated_image_url: downloadUrl
     });
 
     console.log(downloadUrl)
+
+
 
     return NextResponse.json({ status: 'success', generationId: documentId });
   } catch (error) {
