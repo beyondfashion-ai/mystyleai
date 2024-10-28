@@ -1,13 +1,63 @@
+"use client"
 
+import { doc, getDoc } from 'firebase/firestore';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { db } from '../../../../../firebase/firestore';
+import { shareX } from '@/app/utils/utils';
 
 const SNSIcons = [
-  { name: "카카오톡", src: "/images/playground/kakaoIcon.png" },
-  { name: "인스타그램", src: "/images/playground/instagramIcon.png" },
-  { name: "X(트위터)", src: "/images/playground/XIcon.png" },
+  { name: "카카오톡", src: "/images/playground/kakaoIcon.png", shareFunction: shareX },
+  { name: "인스타그램", src: "/images/playground/instagramIcon.png", shareFunction: shareX },
+  { name: "X(트위터)", src: "/images/playground/XIcon.png", shareFunction: shareX },
 ]
 
 export default function Model() {
+
+  const [swappedImageUrl, setSwappedImageUrl] = useState<string>('')
+
+  const router = useRouter()
+  const pathName = usePathname()
+  const generationId = pathName.split('/').pop()
+
+  useEffect(() => {
+    if (!generationId) {
+      router.push('/playground'); // generationId가 없으면 다른 페이지로 이동
+      return;
+    }
+
+    const fetchGenerationData = async () => {
+      try {
+        const docRef = doc(db, 'generation_alpha', generationId); // Firestore에서 해당 문서 참조 가져오기
+        const docSnap = await getDoc(docRef);
+
+        console.log(docSnap)
+
+        if (docSnap.exists()) {
+
+          const data = docSnap.data()
+          console.log(data)
+          const imageUrl = data.swapped_image_url
+          // setGenerationData(docSnap.data()); // 문서 데이터를 state에 저장
+          console.log(imageUrl)
+          setSwappedImageUrl(imageUrl);
+        } else {
+          console.log('No such document!');
+          // setError('Document not found');
+        }
+      } catch (err) {
+        console.error('Error fetching document:', err);
+        // setError('Failed to fetch document');
+      } finally {
+        // setLoading(false); // 로딩 상태 종료
+      }
+    };
+
+    fetchGenerationData();
+
+  }, [])
+
   return (
     <div className="flex relative flex-col pt-3 pb-8 px-3" >
       <Image
@@ -20,13 +70,21 @@ export default function Model() {
         className="flex flex-col w-full items-center my-10"
       >
 
-        <Image
-          src="/images/playground/playgroundSampleImage.png"
-          alt="playgroundSampleImage"
-          width={200}
-          height={200}
-          className="shadow-2xl"
-        />
+        {swappedImageUrl && (
+          <div
+            className='relative'
+          >
+
+            <Image
+              src={swappedImageUrl}
+              alt="playgroundSampleImage"
+              width={330}
+              height={330}
+              className="shadow-2xl"
+            />
+          </div>
+
+        )}
 
         <div
           className="mt-8 text-bold"
@@ -41,6 +99,7 @@ export default function Model() {
             <div
               key={index}
               className="flex flex-col justify-center items-center"
+              onClick={() => icon.shareFunction('디자이너님의 디자인을 친구들과 공유하세요.', window.location.href)}
             >
               <Image
                 src={icon.src}
@@ -61,7 +120,7 @@ export default function Model() {
 
         <div
           className='relative w-full flex flex-col py-4 items-center justify-center mt-4'
-          
+
         >
           <div
             className='absolute w-full h-full flex bg-black opacity-90 rounded-xl items-center justify-center text-white'
@@ -77,7 +136,7 @@ export default function Model() {
           >
             내가 모델이 된<br />패션쇼 영상을 볼 수 있어요
           </div>
-       
+
 
           <div
             className="flex mt-8 text-medium p-1 cursor-pointer"

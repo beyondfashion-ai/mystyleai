@@ -22,3 +22,12 @@ export async function translateText(text: string, targetLang: string = 'en'): Pr
     console.log("error")
   }
 }
+
+
+export function shareX(text: string, url: string) {
+  window.open("https://X.com/intent/tweet?text=" + text + "&url=" + url);
+}
+
+export function shareInstagram(text: string, url: string) {
+  window.open("https://www.instagram.com/sharer.php?u=" + url);
+}

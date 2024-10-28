@@ -6,18 +6,20 @@ import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { db } from '../../../../../firebase/firestore'
 import GenerationProcessModal from '@/components/common/generationProcessModal'
+import { shareX } from '@/app/utils/utils'
 
 const SNSIcons = [
-  { name: "카카오톡", src: "/images/playground/kakaoIcon.png" },
-  { name: "인스타그램", src: "/images/playground/instagramIcon.png" },
-  { name: "X(트위터)", src: "/images/playground/XIcon.png" },
+  { name: "카카오톡", src: "/images/playground/kakaoIcon.png", shareFunction: shareX },
+  { name: "인스타그램", src: "/images/playground/instagramIcon.png", shareFunction: shareX },
+  { name: "X(트위터)", src: "/images/playground/XIcon.png", shareFunction: shareX },
 ]
 
+
 const processStatus = [
-  { number: 25, title: "디자인 일러스트 중", subTitle: "AI 패션 어시스턴트가 열심히 그리고 있어요" },
-  { number: 50, title: "의상 봉제 중", subTitle: "디자이너님의 옷을 만드는 중이에요!" },
-  { number: 75, title: "모델 준비중", subTitle: "탑 모델이 디자이너님의 옷을 착용하려 오고있어요" },
-  { number: 90, title: "모델 착장중", subTitle: "이제 거의 다 되었어요!" },
+  { number: 25, title: "비행기 타는중", subTitle: "패션쇼 참석을 위해 비행중이에요" },
+  { number: 50, title: "숙소도착", subTitle: "숙소에 도착해서 짐을 푸는중이에요" },
+  { number: 75, title: "메이크업 하는중", subTitle: "쇼를 위해 메이크업을 하고있어요" },
+  { number: 90, title: "의상 착용중", subTitle: "이제 옷을 입고 쇼에 나갈 준비를 마쳤어요" },
 ]
 
 export default function Collection() {
@@ -162,6 +164,7 @@ export default function Collection() {
               <div
                 key={index}
                 className="flex flex-col justify-center items-center"
+                onClick={() => icon.shareFunction('디자이너님의 디자인을 친구들과 공유하세요.', window.location.href)}
               >
                 <Image
                   src={icon.src}
