@@ -33,21 +33,16 @@ export async function POST(req: NextRequest, res: NextResponse) {
     local_target: "https://replicate.delivery/pbxt/KgRH4AoijNe7h1lU84m4YwghJNdZ520I7qhGe0ip1ufa9CSA/tgt.jpg"
   }
 
-  console.log("replicate run")
-  const output = await replicate.run("xiankgx/face-swap:cff87316e31787df12002c9e20a78a017a36cb31fde9862d8dedd15ab29b7288", { input });
+  let prediction = await replicate.predictions.create({
+    version: 'cff87316e31787df12002c9e20a78a017a36cb31fde9862d8dedd15ab29b7288',
+    input: input
+  })
 
-  const reader = output.image.getReader()
-  const chunks = []
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) break
-    chunks.push(value)
-  }
+  prediction = await replicate.wait(prediction)
 
-  const blob = new Blob(chunks, { type: "image/png" })
-  const url = URL.createObjectURL(blob)
-
-  console.log(url)
+  const imageUrl = prediction.output.image
+  const response = await fetch(imageUrl)
+  const blob = await response.blob()
 
   const swappedFaceStorageRef = ref(storage, `alpha/${generationId}/swapped_image.png`);
   await uploadBytes(swappedFaceStorageRef, blob);
@@ -63,11 +58,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     swapped_image_url: swappedFaceURL
   });
 
-
-
-
-
-  return NextResponse.json({ status: 'success', image: swappedFaceURL });
+  return NextResponse.json({ status: 'success', swappedFaceURL });
   
   
 }
