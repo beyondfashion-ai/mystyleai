@@ -9,7 +9,10 @@ const replicate = new Replicate({
   auth: process.env.NEXT_PUBLIC_REPLICATE_API_KEY
 });
 
+export const maxDuration = 30;
+
 export async function POST(req: NextRequest, res: NextResponse) {
+  console.log("Post")
 
   const formData = await req.formData();
 
@@ -33,14 +36,18 @@ export async function POST(req: NextRequest, res: NextResponse) {
     local_target: "https://replicate.delivery/pbxt/KgRH4AoijNe7h1lU84m4YwghJNdZ520I7qhGe0ip1ufa9CSA/tgt.jpg"
   }
 
+  console.log("prediction start")
+
   let prediction = await replicate.predictions.create({
     version: 'cff87316e31787df12002c9e20a78a017a36cb31fde9862d8dedd15ab29b7288',
     input: input
   })
 
+  console.log("prediction wait")
+
   prediction = await replicate.wait(prediction)
 
-  console.log("prediction")
+  console.log("prediction end")
   console.log(prediction)
 
   const imageUrl = prediction.output.image
