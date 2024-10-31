@@ -40,6 +40,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   prediction = await replicate.wait(prediction)
 
+  console.log("prediction")
+  console.log(prediction)
+
   const imageUrl = prediction.output.image
   const response = await fetch(imageUrl)
   const blob = await response.blob()
