@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import { db } from '../../../../../firebase/firestore'
 import GenerationProcessModal from '@/components/common/generationProcessModal'
 import { shareX } from '@/app/utils/utils'
-// test1
+// test
 
 const SNSIcons = [
   { name: "카카오톡", src: "/images/playground/kakaoIcon.png", shareFunction: shareX },
