@@ -1,3 +1,4 @@
+// http://localhost:3000/playground/collection/5vDZuQ05tjG92mGV0afo
 "use client"
 
 import { doc, getDoc } from 'firebase/firestore'
@@ -34,10 +35,8 @@ export default function Collection() {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalContent, setModalContent] = useState({ number: 0, title: "", subTitle: "" });
 
-  console.log(pathName)
   const generationId = pathName.split('/').pop()
 
-  console.log(generationId)
   // const { id } = router.query as { id: string }
 
   useEffect(() => {
@@ -51,15 +50,12 @@ export default function Collection() {
         const docRef = doc(db, 'generation_alpha', generationId); // Firestore에서 해당 문서 참조 가져오기
         const docSnap = await getDoc(docRef);
 
-        console.log(docSnap)
 
         if (docSnap.exists()) {
 
           const data = docSnap.data()
-          console.log(data)
           const imageUrl = data.generated_image_url
           // setGenerationData(docSnap.data()); // 문서 데이터를 state에 저장
-          console.log(imageUrl)
           setGeneratedImageUrl(imageUrl);
         } else {
           console.log('No such document!');

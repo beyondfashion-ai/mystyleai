@@ -6,7 +6,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../../../firebase/firestore';
 
 const replicate = new Replicate({
-  auth: "r8_GmNEkfvHbolbjuEPF01WgFJA5TblRG12oBjMA",
+  auth: process.env.NEXT_PUBLIC_REPLICATE_API_KEY
 });
 
 export async function POST(req: NextRequest, res: NextResponse) {
