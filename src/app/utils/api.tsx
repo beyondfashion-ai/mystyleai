@@ -15,8 +15,8 @@ export async function requestFalAIFluxLora(prompt: string, loraPath: string) {
         "num_images": 1,
         "loras": [
             {
-                // "path": loraPath,
-                "path": "https://storage.googleapis.com/fal-flux-lora/8a5eedfedf3243c1968b3fb9685100af_pytorch_lora_weights.safetensors",
+                "path": loraPath,
+                // "path": "https://storage.googleapis.com/fal-flux-lora/8a5eedfedf3243c1968b3fb9685100af_pytorch_lora_weights.safetensors",
                 "scale": 1.4
             }
         ],
