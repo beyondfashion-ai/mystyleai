@@ -41,6 +41,8 @@ const styleToLoraPath: { [key: number]: string | undefined } = {
 
 
 export async function POST(req: NextRequest, res: NextResponse) {
+
+  console.log("generate image")
   const { prompt, style } = await req.json()
 
   const translatePrompt = await translateText(prompt)
