@@ -61,10 +61,12 @@ export default function Model() {
   return (
     <div className="flex relative flex-col pt-3 pb-8 px-3" >
       <Image
-        src="/images/mainLogo.png"
+        className='cursor-pointer'
+        src="/images/mainLogoAlpha.png"
         alt="mainLogo"
-        width={144}
-        height={39}
+        width={100}
+        height={25}
+        onClick={() => router.push('/playground')}
       />
       <div
         className="flex flex-col w-full items-center my-10"

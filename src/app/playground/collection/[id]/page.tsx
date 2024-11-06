@@ -7,7 +7,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { db } from '../../../../../firebase/firestore'
 import GenerationProcessModal from '@/components/common/generationProcessModal'
-import { shareX } from '@/app/utils/utils'
+import downloadImage, { shareX } from '@/app/utils/utils'
 // test
 
 const SNSIcons = [
@@ -99,6 +99,8 @@ export default function Collection() {
       formData.append('generationId', generationId as string)
       formData.append('generatedImageUrl', generatedImageUrl)
 
+      console.log(formData)
+
       const response = await fetch('/api/alpha/swapUserFace', {
         method: 'POST',
         body: formData
@@ -122,10 +124,12 @@ export default function Collection() {
     <div>
       <div className="flex relative flex-col pt-3 pb-8 px-3" >
         <Image
-          src="/images/mainLogo.png"
+          className='cursor-pointer'
+          src="/images/mainLogoAlpha.png"
           alt="mainLogo"
-          width={144}
-          height={39}
+          width={100}
+          height={25}
+          onClick={() => router.push('/playground')}
         />
         <div
           className="flex flex-col w-full items-center my-10"
@@ -143,6 +147,21 @@ export default function Collection() {
                 height={330}
                 className="shadow-2xl"
               />
+
+              <div
+                className="absolute top-0 right-0 text-black p-2 rounded-lg mt-3 me-3 cursor-pointer"
+                style={{ backgroundColor: 'rgba(245, 239, 225, 0.7)' }}
+                onClick={() => downloadImage(generatedImageUrl, "downloaded-image.jpg")} // 원하는 파일명 설정
+              >
+                <Image
+                  src="/images/playground/download.png"
+                  alt="downloadIcon"
+                  width={20}
+                  height={20}
+                />
+              </div>
+
+
             </div>
 
           )}
@@ -222,6 +241,19 @@ export default function Collection() {
             />
           </div>
 
+
+
+        </div>
+        <div
+          className='text-semiBold text-md'
+        >
+          개인정보 수집 및 이용 안내
+        </div>
+
+        <div
+          className='mt-2 text-sm'
+        >
+          본 서비스는 AI 기능을 통해 유저의 얼굴 사진을 처리합니다. 업로드된 사진은 얼굴 변환 등의 서비스 제공 목적으로만 일시적으로 사용되며, 처리 완료 후 즉시 삭제됩니다. 사용자의 사진 및 개인 정보는 제3자와 공유되지 않으며, 안전하게 보호됩니다. 서비스 이용 시 이러한 처리 방침에 동의하는 것으로 간주됩니다.
         </div>
 
 

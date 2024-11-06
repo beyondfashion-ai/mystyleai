@@ -88,10 +88,12 @@ export default function Playground() {
     <div>
       <div className="flex relative flex-col pt-3 pb-8 px-3" >
         <Image
+          className='cursor-pointer'
           src="/images/mainLogoAlpha.png"
           alt="mainLogo"
-          width={144}
-          height={39}
+          width={100}
+          height={25}
+          onClick={() => router.push('/playground')}
         />
 
         <div
@@ -195,9 +197,6 @@ export default function Playground() {
                   width={120}
                   height={120}
                 />
-
-
-
               </div>
             ))}
           </div>
@@ -206,14 +205,15 @@ export default function Playground() {
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             className="mt-2 p-2 border rounded-md mt-8 w-full"
-            style={{ fontSize: 10, height: 90, resize: 'none', borderColor: '#BFA054', backgroundColor: '#F5EFE1' }}
-            placeholder="이미지에 대한 설명을 입력해주세요."
+            style={{ fontSize: 10, height: 90, resize: 'none', borderColor: '#BFA054', backgroundColor: '#F5EFE1', whiteSpace: 'pre-line' }}
+            placeholder={`당신의 디자인을 설명해주세요 !
+              (예시) “여자 모델이 착용한 카키색 코트와 갈색의 중간 사이즈 토트백”`}
           />
 
           <div
-            className="mt-8 text-medium p-1 cursor-pointer"
-            style={{ color: 'white', backgroundColor: 'var(--main-color)', borderRadius: 8 }}
-            onClick={handleGenerateCollection}
+            className={`mt-8 text-medium p-1 ${selectedStyle ? 'cursor-pointer' : ''}`}
+            style={{ color: 'white', backgroundColor: 'var(--main-color)', borderRadius: 8, opacity: selectedStyle ? 1 : 0.3 }}
+            onClick={selectedStyle && handleGenerateCollection}
           >
             <div
               className="text-medium py-2"

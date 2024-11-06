@@ -16,24 +16,33 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   const formData = await req.formData();
 
+  console.log(formData)
+
   const image = formData.get('userImage') as Blob;
   const generationId = formData.get('generationId') as string;
-  const generatedImageURL = formData.get('generatedImageURL') as string;
+  const generatedImageURL = formData.get('generatedImageUrl') as string;
+
+  console.log(generationId)
+  console.log(generatedImageURL)
 
   const userFaceStorageRef = ref(storage, `alpha/${generationId}/user_face.png`);
 
   await uploadBytes(userFaceStorageRef, image);
 
   const userFaceURL = await getDownloadURL(userFaceStorageRef);
+  
   console.log(userFaceURL)
+  console.log(generatedImageURL)
 
   // 유저 이미지와 생성된 이미지 URL로 Face Swap API 호출
 
+  
+
   const input = {
-    // local_source: userFaceURL,
-    // local_target: generatedImageURL,
-    local_source: "https://replicate.delivery/pbxt/KgRH3TXuSLGMGuRicUX9pKchG17Nk6qbJMzv6s0NvTj2nD7P/src.jpg",
-    local_target: "https://replicate.delivery/pbxt/KgRH4AoijNe7h1lU84m4YwghJNdZ520I7qhGe0ip1ufa9CSA/tgt.jpg"
+    local_source: userFaceURL,
+    local_target: generatedImageURL,
+    // local_source: "https://replicate.delivery/pbxt/KgRH3TXuSLGMGuRicUX9pKchG17Nk6qbJMzv6s0NvTj2nD7P/src.jpg",
+    // local_target: "https://replicate.delivery/pbxt/KgRH4AoijNe7h1lU84m4YwghJNdZ520I7qhGe0ip1ufa9CSA/tgt.jpg"
   }
 
   console.log("prediction start")
