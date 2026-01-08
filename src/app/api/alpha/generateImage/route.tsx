@@ -60,8 +60,7 @@ export async function POST(req: NextRequest) {
 
 
         const inputPrompt = safeDocData.translate_prompt + " " + T2IBasePositivePrompt;
-        const loraPath = styleToLoraPath[safeDocData.style] ? styleToLoraPath[safeDocData.style] : '';
-
+        const loraPath = (styleToLoraPath[safeDocData.style] || '') as string;
         const response = await requestFalAIFluxLora(inputPrompt, loraPath);
 
         if (!response?.data?.images?.[0]?.url) {

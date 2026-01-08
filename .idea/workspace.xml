@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d98b0b7e-abc7-4b92-b650-1a52253b8c06" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/src/app/api/generateImage/route.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/generateImage/route.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="d98b0b7e-abc7-4b92-b650-1a52253b8c06" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,7 +86,7 @@
       <option name="presentableId" value="Default" />
       <updated>1767815587305</updated>
       <workItem from="1767815588775" duration="4646000" />
-      <workItem from="1767883444750" duration="6282000" />
+      <workItem from="1767883444750" duration="6679000" />
     </task>
     <servers />
   </component>

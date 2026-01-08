@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 import { translateText } from '@/app/utils/utils';
-// [중요] addDoc 대신 setDoc, doc 사용 (서버 환경 충돌 방지)
 import { setDoc, doc } from 'firebase/firestore';
-import { db } from '../../../../firebase/firestore';
+import { db } from '../../../../firebase/firestore'
 import { requestFalAIFluxLora } from '@/app/utils/api';
 import sharp from 'sharp';
 
@@ -16,7 +15,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const T2IBasePositivePrompt = "(((no nipple)))(((no sunglasses)))(best quality:1.2), (masterpiece:1.2), (8K:1.2), (intricate details:1.2), (photorealistic:1.2), (raw, highres:1.2),(realistic:1.3), (photo:1.3),a photo of a fashion model, full body, whole body, put on shoes, delicate face, delicate figure, young white people";
+const T2IBasePositivePrompt = "(((no nipple)))(((no sunglasses)))(best quality:1.2), (masterpiece:1.2), (8K:1.2), (intricate details:1.2), (photorealistic:1.2), (raw, highres:1.2),(realistic:1.3), (photo:1.3),a photo of a fashion model, full body, whole body, put on shoes,  delicate face, delicate figure, young white people";
 
 const styleToLoraPath: { [key: number]: string | undefined } = {
     1: process.env.NEXT_PUBLIC_CHANEL_2024_FW_WOMEN,
@@ -27,13 +26,11 @@ const styleToLoraPath: { [key: number]: string | undefined } = {
     6: process.env.NEXT_PUBLIC_FENDI_2024_FW_MEN,
 };
 
-// ID 생성 함수
 function generateId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
 
 export async function POST(req: NextRequest) {
-    console.log("=== [1] 이미지 생성 요청 시작 ===");
 
     try {
         const body = await req.json();
@@ -48,7 +45,6 @@ export async function POST(req: NextRequest) {
 
         const documentId = generateId();
 
-        // 데이터 정제
         const cleanStyle = Number(style);
         const safeDocData = {
             docId: documentId,
@@ -60,20 +56,12 @@ export async function POST(req: NextRequest) {
             gender: String(userGender || "unknown")
         };
 
-        console.log("=== [4] Firestore 저장 시도 (setDoc 사용):", safeDocData);
 
-        // Firestore에 초기 상태 저장
         await setDoc(doc(db, 'generation_alpha', documentId), safeDocData);
 
-        console.log("=== [5] Firestore 문서 생성 성공 ID:", documentId);
-
-        // 이미지 생성 요청 준비
         const inputPrompt = safeDocData.translate_prompt + " " + T2IBasePositivePrompt;
+        const loraPath: string = styleToLoraPath[safeDocData.style] ?? '';
 
-        // [수정 핵심] TypeScript 타입 에러 해결: loraPath를 string으로 확정
-        const loraPath = (styleToLoraPath[safeDocData.style] || '') as string;
-
-        console.log("=== [6] AI 이미지 생성 요청 (Fal AI) ===");
         const response = await requestFalAIFluxLora(inputPrompt, loraPath);
 
         if (!response?.data?.images?.[0]?.url) {
@@ -81,20 +69,15 @@ export async function POST(req: NextRequest) {
         }
 
         const imageUrl = response.data.images[0].url;
-        console.log("=== [7] AI 이미지 URL 획득:", imageUrl);
 
         const imageResponse = await fetch(imageUrl);
         const imageBlob = await imageResponse.blob();
 
-        // 워터마크 작업
-        console.log("=== [8] 워터마크 작업 시작 ===");
         const imageBlobWithWatermark = await drawWaterMark(imageBlob);
 
         let finalBlob = imageBlobWithWatermark || imageBlob;
         let fileName = imageBlobWithWatermark ? `generation_watermark` : `generation`;
 
-        // Cloudinary 업로드
-        console.log("=== [9] Cloudinary 업로드 시작 ===");
         const arrayBuffer = await finalBlob.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
 
@@ -117,15 +100,11 @@ export async function POST(req: NextRequest) {
             uploadStream.end(buffer);
         });
 
-        console.log("=== [10] Cloudinary 업로드 성공 URL:", uploadResult.secure_url);
-
-        // 최종 상태 업데이트 (setDoc merge 사용)
         await setDoc(doc(db, 'generation_alpha', documentId), {
             status: 'generation_completed',
             generated_image_url: uploadResult.secure_url
         }, { merge: true });
 
-        console.log("=== [11] 최종 완료 ===");
 
         return NextResponse.json({ status: 'success', generationId: documentId });
 
@@ -159,7 +138,6 @@ async function drawWaterMark(originalBlob: Blob): Promise<Blob | null> {
         return new Blob([resultBuffer], { type: 'image/png' });
 
     } catch (error) {
-        console.error("워터마크 처리 중 에러:", error);
         return null;
     }
 }
