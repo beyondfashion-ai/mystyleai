@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 import { translateText } from '@/app/utils/utils';
-// [중요] addDoc 대신 setDoc, doc 사용 (서버 충돌 방지)
 import { setDoc, doc } from 'firebase/firestore';
-import { db } from '../../../../../firebase/firestore'; // 경로 확인 필수!
+import { db } from '../../../../firebase/firestore'
 import { requestFalAIFluxLora } from '@/app/utils/api';
 import sharp from 'sharp';
 
