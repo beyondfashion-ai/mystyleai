@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --main-color: #0ED6D0;
+  --background-color: #fff;
+  --max-width: 500px;
+  user-select: none;
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  user-select: none;
+  -webkit-user-drag: none;
+  
+}
+
+@media (prefers-color-scheme: white) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+    
+  }
+}
+
+body {
+  font-family: 'Pretendard';
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 400;
+  font-style: normal;
+  src: url("/fonts/Pretendard-Regular.woff") format('woff');
+}
+
+@font-face {
+  font-family: "PretendardBold";
+  font-weight: 700;
+  font-style: normal;
+  src: url("/fonts/Pretendard-Bold.woff") format('woff');
+}
+
+@font-face {
+  font-family: "PretendardLight";
+  font-weight: 200;
+  font-style: normal;
+  src: url("/fonts/Pretendard-Light.woff") format('woff');
+}
+
+@font-face {
+  font-family: "PretendardSemiBold";
+  font-weight: 600;
+  font-style: normal;
+  src: url("/fonts/Pretendard-SemiBold.woff") format('woff');
+}
+
+.bg-main-background {
+  background-color: #0ED6D0;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.dark-gray-color {
+  color: #333333
+}
+
+.gray-color {
+  color: #999999;
+}
+
+.davys-gray-color {
+  color: #555;
+}
+
+.light-gray-color {
+  color: #777777;
+}
+
+.text-bold {
+  font-family: 'PretendardBold';
+  font-weight: 700;
+  font-style: normal;
+}
+
+.text-light {
+  font-family: 'PretendardLight';
+}
+
+.text-semiBold {
+  font-family: 'PretendardSemiBold';
+}
+
+.text-regular {
+  font-family: 'Pretendard';
+}
+
+.text-medium {
+  font-family: 'Pretendard';
+  font-weight: 500;
+}
+
+.gradient-blur-background {
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; */
+  background: linear-gradient(to bottom, rgba(35, 35, 35, 0), rgba(35, 35, 35, 0.5));
+  backdrop-filter: blur(10px);
+  z-index: 1;
+}
+
+@keyframes scrollToLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollToRight {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0); /* 오른쪽으로 스크롤하므로 50%만큼 양의 값으로 이동 */
+  }
+}
+
+.fixed-button {
+  position: fixed;
+  bottom: 20px; /* 조정 가능 */
+  left: 50%;
+  z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
+  transform: translate(-50%, -50%);
+}
+
