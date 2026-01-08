@@ -3,7 +3,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import { translateText } from '@/app/utils/utils';
 // [중요] addDoc 대신 setDoc, doc 사용 (서버 환경 충돌 방지)
 import { setDoc, doc } from 'firebase/firestore';
-import { db } from '../../../../../firebase/firestore';
+import { db } from '../../../../firebase/firestore';
 import { requestFalAIFluxLora } from '@/app/utils/api';
 import sharp from 'sharp';
 
