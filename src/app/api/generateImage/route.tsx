@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
         await setDoc(doc(db, 'generation_alpha', documentId), safeDocData);
 
         const inputPrompt = safeDocData.translate_prompt + " " + T2IBasePositivePrompt;
-        const loraPath = styleToLoraPath[safeDocData.style] ? styleToLoraPath[safeDocData.style] : '';
+        const loraPath: string = styleToLoraPath[safeDocData.style] ?? '';
 
         const response = await requestFalAIFluxLora(inputPrompt, loraPath);
 
